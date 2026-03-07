@@ -5,7 +5,7 @@ import capacitesData from './capacites.json';
 
 // --- 1. CONFIGURATION DES STATS DE BASE DE JOHN ---
 const REFERENCE_LEVEL = 7.5;
-const JOHN_BASE_STATS = { power: 1, speed: 1, trick: 16, recovery: 1, defense: 1 };
+const JOHN_BASE_STATS = { power: 1, speed: 1, trick: 14, recovery: 1, defense: 1 };
 
 // Calcul automatique des rapports (stat / niveau) pour l'évolution de John
 const JOHN_RATIOS = {
@@ -26,40 +26,41 @@ const statConfig = [
 
 // --- 2. COMPOSANT GRAPHIQUE RADAR SVG SUR-MESURE ---
 const RadarChart = ({ stats }) => {
-  const maxStat = 16;
-  const size = 320;
+  const maxStat = 10; // La limite VISUELLE de la grille est maintenant à 10
+  const size = 500;   // Canvas plus grand pour permettre à l'Aura de déborder
   const cx = size / 2;
   const cy = size / 2;
-  const radius = 110;
+  const radius = 120; // Taille de la grille
   const keys = ['power', 'speed', 'trick', 'recovery', 'defense'];
   const labels = ['Power', 'Speed', 'Trick', 'Recovery', 'Defense'];
 
-  // Calcule les coordonnées X,Y pour un groupe de statistiques
-  const getPoints = (statObj) => {
+  // Fonction pour calculer les points. L'option "clamp" permet de brider la grille, mais libérer l'aura
+  const getPoints = (statObj, clamp = false) => {
     return keys.map((key, i) => {
-      const val = Math.min(statObj[key] || 1, maxStat);
+      // Si on trace la grille, on bloque à maxStat. Si c'est l'Aura, on la laisse exploser le plafond !
+      const val = clamp ? Math.min(statObj[key] || 1, maxStat) : (statObj[key] || 1);
       const r = (val / maxStat) * radius;
       const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
       return `${cx + r * Math.cos(angle)},${cy + r * Math.sin(angle)}`;
     }).join(' ');
   };
 
-  const levels = [4, 8, 12, 16]; // Cercles de niveau du radar
+  const levels = [2, 4, 6, 8, 10]; // Nouvelles lignes de la grille jusqu'à 10 seulement
 
   return (
-    <div className="relative w-full aspect-square max-w-[400px] mx-auto bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neutral-800 to-neutral-950 rounded-full p-4 shadow-2xl border border-neutral-800">
+    <div className="relative w-full aspect-square max-w-[450px] mx-auto bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neutral-800 to-neutral-950 rounded-full p-4 shadow-2xl border border-neutral-800">
       <svg width="100%" height="100%" viewBox={`0 0 ${size} ${size}`} className="overflow-visible">
-        {/* Toile d'araignée (Grille) */}
+        {/* Toile d'araignée (Grille bornée à 10) */}
         {levels.map(l => (
           <polygon 
             key={l}
-            points={getPoints({power:l, speed:l, trick:l, recovery:l, defense:l})}
+            points={getPoints({power:l, speed:l, trick:l, recovery:l, defense:l}, true)}
             fill="none"
             stroke="rgba(255,255,255,0.05)"
             strokeWidth="1.5"
           />
         ))}
-        {/* Lignes d'axes */}
+        {/* Lignes d'axes (S'arrêtent à 10) */}
         {keys.map((key, i) => {
           const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
           return (
@@ -74,18 +75,18 @@ const RadarChart = ({ stats }) => {
           )
         })}
         
-        {/* L'Aura de John (La forme colorée) */}
+        {/* L'Aura de John (Dépassement autorisé !!!) */}
         <polygon 
-          points={getPoints(stats)}
+          points={getPoints(stats, false)}
           fill="rgba(255, 215, 0, 0.3)"
           stroke="#ffd700"
           strokeWidth="3"
           className="transition-all duration-500 ease-in-out"
         />
         
-        {/* Les points sur les sommets */}
+        {/* Les points sur les sommets de l'Aura (Dépassement autorisé) */}
         {keys.map((key, i) => {
-          const val = Math.min(stats[key] || 1, maxStat);
+          const val = stats[key] || 1;
           const r = (val / maxStat) * radius;
           const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
           return (
@@ -102,21 +103,25 @@ const RadarChart = ({ stats }) => {
           )
         })}
         
-        {/* Textes des statistiques */}
+        {/* Textes des statistiques (Repoussés si la stat dépasse 10) */}
         {keys.map((key, i) => {
+          const val = stats[key] || 1;
           const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
-          const r = radius + 30; // Décale le texte au bout de l'axe
+          // Si la valeur dépasse le rayon max, le texte se place encore plus loin !
+          const currentRadius = (val / maxStat) * radius;
+          const rText = Math.max(radius, currentRadius) + 35; 
+          
           return (
             <text 
               key={`lbl-${key}`}
-              x={cx + r * Math.cos(angle)}
-              y={cy + r * Math.sin(angle)}
+              x={cx + rText * Math.cos(angle)}
+              y={cy + rText * Math.sin(angle)}
               fill="#ffd700"
               fontSize="12"
               fontWeight="bold"
               textAnchor="middle"
               dominantBaseline="middle"
-              className="tracking-wider uppercase opacity-90"
+              className="tracking-wider uppercase opacity-90 transition-all duration-500 ease-in-out"
             >
               {labels[i]}
             </text>
