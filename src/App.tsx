@@ -136,7 +136,7 @@ export default function App() {
       }
 
       // Trouver la statistique la plus élevée de cette capacité
-      let maxStatKey = null;
+      let maxStatKey: string | null = null; // <-- Ajout du typage ici
       let maxStatValue = -1;
       for (let key in statsCalculees) {
         if (statsCalculees[key] > maxStatValue) {
@@ -156,7 +156,7 @@ export default function App() {
     return stats;
   }, [johnLevel, slots]);
 
-  const updateSlot = (index, value) => {
+  const updateSlot = (index: number, value: string) => {
     // If the user is removing an ability (emptying the slot), always allow it
     if (!value) {
       const newSlots = [...slots];
@@ -167,11 +167,15 @@ export default function App() {
 
     // Checking if the new ability fits into John's Aura Reserves
     const cap = capacitesData.find(c => c.id === parseInt(value));
+    
+    // <-- AJOUTER CETTE LIGNE POUR RASSURER TYPESCRIPT -->
+    if (!cap) return; 
+
     const currentSlotVal = slots[index];
     const currentCap = currentSlotVal ? capacitesData.find(c => c.id === parseInt(currentSlotVal)) : null;
 
     const currentDrainInThisSlot = currentCap ? getAuraCost(currentCap.niveau) : 0;
-    const newDrain = getAuraCost(cap.niveau);
+    const newDrain = getAuraCost(cap.niveau); // TypeScript ne râlera plus ici
     
     const projectedAuraDrain = currentAuraDrain - currentDrainInThisSlot + newDrain;
 
