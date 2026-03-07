@@ -3,12 +3,25 @@ import { Shield, Zap, Swords, Brain, Heart, ChevronDown } from 'lucide-react';
 
 import capacitesData from './capacites.json';
 
+// --- 1. CONFIGURATION DES STATS DE BASE DE JOHN ---
+const REFERENCE_LEVEL = 7.5;
+const JOHN_BASE_STATS = { power: 1, speed: 1, trick: 16, recovery: 1, defense: 1 };
+
+// Calcul automatique des rapports (stat / niveau) pour l'évolution de John
+const JOHN_RATIOS = {
+  power: JOHN_BASE_STATS.power / REFERENCE_LEVEL,
+  speed: JOHN_BASE_STATS.speed / REFERENCE_LEVEL,
+  trick: JOHN_BASE_STATS.trick / REFERENCE_LEVEL,
+  recovery: JOHN_BASE_STATS.recovery / REFERENCE_LEVEL,
+  defense: JOHN_BASE_STATS.defense / REFERENCE_LEVEL
+};
+
 const statConfig = [
-  { key: 'power', label: 'Puissance', Icon: Swords, color: 'text-red-500' },
-  { key: 'speed', label: 'Vitesse', Icon: Zap, color: 'text-blue-400' },
-  { key: 'trick', label: 'Ruse', Icon: Brain, color: 'text-purple-500' },
-  { key: 'recovery', label: 'Récup.', Icon: Heart, color: 'text-green-400' },
-  { key: 'defense', label: 'Défense', Icon: Shield, color: 'text-yellow-600' }
+  { key: 'power', label: 'Power', Icon: Swords, color: 'text-red-500' },
+  { key: 'speed', label: 'Speed', Icon: Zap, color: 'text-blue-400' },
+  { key: 'trick', label: 'Trick', Icon: Brain, color: 'text-purple-500' },
+  { key: 'recovery', label: 'Recovery', Icon: Heart, color: 'text-green-400' },
+  { key: 'defense', label: 'Defense', Icon: Shield, color: 'text-yellow-600' }
 ];
 
 // --- 2. COMPOSANT GRAPHIQUE RADAR SVG SUR-MESURE ---
@@ -19,7 +32,7 @@ const RadarChart = ({ stats }) => {
   const cy = size / 2;
   const radius = 110;
   const keys = ['power', 'speed', 'trick', 'recovery', 'defense'];
-  const labels = ['Puissance', 'Vitesse', 'Ruse', 'Récupération', 'Défense'];
+  const labels = ['Power', 'Speed', 'Trick', 'Recovery', 'Defense'];
 
   // Calcule les coordonnées X,Y pour un groupe de statistiques
   const getPoints = (statObj) => {
@@ -121,7 +134,14 @@ export default function App() {
 
   // --- MOTEUR DE FUSION (Recalculé automatiquement si niveau ou slots changent) ---
   const statsFinales = useMemo(() => {
-    let stats = { power: 1, speed: 1, trick: 10, recovery: 1, defense: 1 };
+    // Les stats de base de John évoluent maintenant dynamiquement grâce aux ratios !
+    let stats = { 
+      power: JOHN_RATIOS.power * johnLevel, 
+      speed: JOHN_RATIOS.speed * johnLevel, 
+      trick: JOHN_RATIOS.trick * johnLevel, 
+      recovery: JOHN_RATIOS.recovery * johnLevel, 
+      defense: JOHN_RATIOS.defense * johnLevel 
+    };
     
     slots.forEach(slotId => {
       if (!slotId) return;
