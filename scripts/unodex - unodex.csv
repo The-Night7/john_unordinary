@@ -3,8 +3,6 @@ Cripple,William H. Doe,Aucune,None,1,1,1,1,1,1,"100,00%","Sans capacité, person
 Low Tier,Uru-chan,Troll,Manipulation,"1,2",1,1,0,2,1,"83,33%",Troll is a very effective ability that lets the user masterfully manipulate the plot.,https://unordinary.fandom.com/wiki/Uru-chan,Non disponible
 Low Tier,Evie,Illumination,Quantum,"1,5",1,1,1,2,1,"80,00%","Capacité permettant de générer et manipuler la lumière à un faible niveau. Elle peut créer de petites sources lumineuses dans la paume des mains, utile dans l'obscurité mais avec une puissance limitée. Membre du Safe House Club à Wellston.",https://unordinary.fandom.com/wiki/Evie,https://static.wikia.nocookie.net/unordinary6344/images/6/63/Evie-number.png/revision/latest?cb=20191122035120
 Low Tier,Lin,Needles,Emission,"1,8",1,1,1,2,1,"66,67%",Capacité permettant de générer et projeter des aiguilles.,https://unordinary.fandom.com/wiki/Lin,https://static.wikia.nocookie.net/unordinary6344/images/3/34/Lin_Stats.png/revision/latest/scale-to-width-down/1000?cb=20190725054018
-Low Tier,Brennet,Non spécifiée,Unknown,"1,0-1,9",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Brennet,Non disponible
-Low Tier,Roland,Non spécifiée,Unknown,"1,0-1,9",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Roland,Non disponible
 Mid Tier,Ability Gauger,Ability Gauging,Detection,2,?,?,?,?,?,#VALUE!,Capacité permetant de calculer la capacité de quelqu'un (arrondi),https://unordinary.fandom.com/wiki/Ability_Gauger,Non disponible
 Mid Tier,Hower,Heat Palm,Quantum,"2,1",2,1,1,2,1,"66,67%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Hower,Non disponible
 Mid Tier,Rouker,Missiles,Emission,"2,2",3,1,1,3,2,"90,91%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Rouker,Non disponible
@@ -38,13 +36,10 @@ Mid Tier,Tanner,Regeneration,Curative,"3,1",2,3,5,3,1,"90,32%","Capacité non sp
 Mid Tier,Brea,Arcane Shot,Emission,"3,2",4,1,1,2,2,"62,50%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Brea,Non disponible
 Mid Tier,Lance,Tremor,Quantum,"3,2",4,2,2,3,2,"81,25%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Lance,Non disponible
 Mid Tier,Merin,Charge,Enhancement,"3,4",2,4,2,1,4,"76,47%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Merin,Non disponible
-Mid Tier,Adrion,Non spécifiée,Enhancement,"2,0-3,4",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Adrion,Non disponible
-Mid Tier,Julien,Non Spécifiée,Enhancement,"2,0-3,4",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Julien,Non disponible
-Mid Tier,Misa,Repulsion,Quantum,"2,0-3,4",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Misa,Non disponible
-Mid Tier,Nadia,Lie Detection,Mental,"2,0-3,4",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Nadia,Non disponible
-Mid Tier,Oliver,Catalyst ray,Emission,"2,0-3,4",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Oliver,Non disponible
+Mid Tier,Nadia,Lie Detection,Mental,"3,4",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Nadia,Non disponible
 Elite Tier,Elaine,Healing,Curative,"3,5",1,3,7,1,1,"74,29%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Elaine,Non disponible
 Elite Tier,Lennon,Conjure: Disks,Creation,"3,5",3,5,"1,3",4,2,"87,43%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Lennon,Non disponible
+Elite Tier,???,Sleep Touch,Alteration,"3,5",2,2,2,5,3,"80,00%",,,
 Elite Tier,Abel,Explosion,Quantum,"3,6",4,3,2,4,2,"83,33%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Abel,Non disponible
 Elite Tier,Levani,Grenadier,Emission,"3,6",5,1,2,4,2,"77,78%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Levani,Non disponible
 Elite Tier,Payton,Superhuman,Enhancement,"3,6",3,3,3,2,3,"77,78%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Payton,Non disponible
@@ -57,6 +52,7 @@ Elite Tier,Myles,Heal Link,Curative,"3,8",1,2,7,3,1,"73,68%","Capacité non spé
 Elite Tier,Ventus,Whirlwind,Quantum,"3,8",3,3,2,3,4,"78,95%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Ventus,Non disponible
 Elite Tier,Jace,Iron Knuckle,Enhancement,"3,8",5,2,2,2,4,"78,95%",,https://unordinary.fandom.com/wiki/Jace,Non disponible
 Elite Tier,Leena,Fleetstep,Enhancement,"3,8",3,4,5,1,2,"78,95%",,https://unordinary.fandom.com/wiki/Leena,Non disponible
+Elite Tier,???,Heal,Curative,"3,8",2,2,6,4,1,,,,
 Elite Tier,Gou,Super Strength,Enhancement,4,6,5,2,1,3,"85,00%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Gou,Non disponible
 Elite Tier,Holden,Non Spécifiée,Unknown,4,?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Holden,Non disponible
 Elite Tier,Darren,Nightmare,Mental,"4,2",1,5,4,5,2,"80,95%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Darren,Non disponible
@@ -66,14 +62,14 @@ Elite Tier,Zeke,Phase Shift (Def),Enhancement,"4,2",1,5,3,6,1,"76,19%",,,
 Elite Tier,Charlie,Contact Shred,Non spécifiée,"4,2",6,3,"4,5","1,5","1,5","78,57%",,https://unordinary.fandom.com/wiki/Charlie,Non disponible
 Elite Tier,Kree,Armor Suit,Enhancement,"4,4",4,5,3,4,3,"86,36%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Kree,Non disponible
 Elite Tier,Terrence,Invisibility,Enhancement,"4,4",1,2,2,10,3,"81,82%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Terrence,Non disponible
+Elite Tier,"""Valorian""",Crimson Armor,Creation,"4,7",5,6,2,5,3,,,,
 Elite Tier,Isen,Hunter,Enhancement,"4,8",6,5,3,6,3,"95,83%",,,
-Elite Tier,Broven,Non spécifiée,Non spécifiée,"4,8",,,,,,?,,https://unordinary.fandom.com/wiki/Broven,Non disponible
-Elite Tier,Rein,Arachnid,Creation,"5,1",4,6,2,4,4,"78,43%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Rein,Non disponible
-Elite Tier,Mama Lightning,Lightning,Quantum,"3,5-4,9",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Mama_Lightning,Non disponible
+Elite Tier,Broven,Non spécifiée,Non spécifiée,"4,8",?,?,?,?,?,#VALUE!,,https://unordinary.fandom.com/wiki/Broven,Non disponible
 High Tier,Melvin,Spectral Claw,Enhancement,5,8,3,2,6,5,"96,00%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Melvin,Non disponible
+High Tier,Rein,Arachnid,Creation,"5,1",4,6,2,4,4,"78,43%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Rein,Non disponible
 High Tier,Blyke,Energy Discharge,Emission,"5,1",8,4,5,5,4,"101,96%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Blyke,Non disponible
-High Tier,Cecile,Conjure: Vines,Creation,"5,3",5,5,4,7,3,"90,57%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Cecile,Non disponible
 High Tier,Keon,Memory Recall,Mental,"5,2",,,,,,?,,https://unordinary.fandom.com/wiki/Keon,Non disponible
+High Tier,Cecile,Conjure: Vines,Creation,"5,3",5,5,4,7,3,"90,57%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Cecile,Non disponible
 High Tier,Isen,Predator,Predator,"5,3",7,5,3,6,4,"94,34%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Isen,Non disponible
 High Tier,Candice,Duplication,Quantum,"5,6",5,5,3,8,3,"85,71%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Candice,Non disponible
 High Tier,Colt,Imprison,Creation,"5,6",7,7,4,6,2,"92,86%","Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Colt,Non disponible
@@ -98,6 +94,13 @@ God Tier,Seraphina,Time Manipulation,Quantum,8,12,2,9,10,14,"117,50%","Capacité
 God Tier,Jane,Channel Master,Detection,"9,1",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Jane,Non disponible
 God Tier,Cameron,Channel Master,Detection,?,?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Cameron,Non disponible
 God Tier,Orrin,Command,Mental,?,?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Orrin,Non disponible
+Low Tier,Brennet,Non spécifiée,Unknown,"1,0-1,9",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Brennet,Non disponible
+Low Tier,Roland,Non spécifiée,Unknown,"1,0-1,9",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Roland,Non disponible
+Mid Tier,Adrion,Non spécifiée,Enhancement,"2,0-3,4",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Adrion,Non disponible
+Mid Tier,Julien,Non Spécifiée,Enhancement,"2,0-3,4",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Julien,Non disponible
+Mid Tier,Misa,Repulsion,Quantum,"2,0-3,4",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Misa,Non disponible
+Mid Tier,Oliver,Catalyst ray,Emission,"2,0-3,4",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Oliver,Non disponible
+Elite Tier,Mama Lightning,Lightning,Quantum,"3,5-4,9",?,?,?,?,?,#VALUE!,"Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",https://unordinary.fandom.com/wiki/Mama_Lightning,Non disponible
 ,Alden,Non spécifiée,,,,,,,,#DIV/0!,,https://unordinary.fandom.com/wiki/Alden,Non disponible
 ,Dylan,Non spécifiée,,,,,,,,#DIV/0!,,https://unordinary.fandom.com/wiki/Dylan,Non disponible
 ,Gianna,Non spécifiée,,,,,,,,#DIV/0!,,https://unordinary.fandom.com/wiki/Gianna,Non disponible
@@ -123,5 +126,3 @@ God Tier,Orrin,Command,Mental,?,?,?,?,?,?,#VALUE!,"Capacité non spécifiée, au
 ,Simon,Non spécifiée,,,,,,,,#DIV/0!,,https://unordinary.fandom.com/wiki/Simon,Non disponible
 ,Quinton,Non spécifiée,,,,,,,,#DIV/0!,,https://unordinary.fandom.com/wiki/Quinton,Non disponible
 ,Talia,Non spécifiée,,,,,,,,#DIV/0!,,https://unordinary.fandom.com/wiki/Talia,Non disponible
-Elite Tier,???,Heal,Curative,"4,5",2,2,6,4,1,,,,
-Elite Tier,"""Valorian""",Crimson Armor,Creation,"4,7",5,6,2,5,3,,,,
