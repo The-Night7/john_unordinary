@@ -4,7 +4,7 @@ import json
 capacites = []
 
 # Ouvre ton fichier CSV
-with open('unodex - unodex.csv', mode='r', encoding='utf-8') as fichier_csv:
+with open('scripts/unodex - unodex.csv', mode='r', encoding='utf-8') as fichier_csv:
     lecteur = csv.DictReader(fichier_csv)
     
     id_counter = 1

@@ -135,9 +135,20 @@ export default function App() {
         for (let key in cap.ratios_stats) statsCalculees[key] = cap.ratios_stats[key] * johnLevel;
       }
 
+      // Trouver la statistique la plus élevée de cette capacité
+      let maxStatKey = null;
+      let maxStatValue = -1;
+      for (let key in statsCalculees) {
+        if (statsCalculees[key] > maxStatValue) {
+          maxStatValue = statsCalculees[key];
+          maxStatKey = key;
+        }
+      }
+
+      // Appliquer le bonus de 1.5 uniquement à la meilleure statistique
       for (let key in statsCalculees) {
         let valeur = statsCalculees[key];
-        if (key === cap.stat_principale) valeur *= 1.5;
+        if (key === maxStatKey) valeur *= 1.5;
         stats[key] = Math.max(stats[key], valeur);
       }
     });
