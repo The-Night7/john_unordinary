@@ -4,7 +4,7 @@ import capacitesData from './capacites.json';
 
 // --- 1. CONFIGURATION DES STATS DE BASE DE JOHN ---
 const REFERENCE_LEVEL = 7.5;
-const JOHN_BASE_STATS = { power: 1, speed: 1, trick: 14, recovery: 1, defense: 1 };
+const JOHN_BASE_STATS = { power: 1, speed: 1, trick: 16, recovery: 1, defense: 1 };
 
 const JOHN_RATIOS = {
   power: JOHN_BASE_STATS.power / REFERENCE_LEVEL,

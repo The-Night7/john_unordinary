@@ -1626,5 +1626,71 @@
             "recovery": 1.125,
             "defense": 0.25
         }
+    },
+    {
+        "id": 75,
+        "nom_personnage": "Isen",
+        "nom_capacite": "Hunter",
+        "niveau": 4.8,
+        "tier": "High Tier",
+        "stat_principale": "power",
+        "stats_de_base": {
+            "power": 6.0,
+            "speed": 3.0,
+            "trick": 6.0,
+            "recovery": 3.0,
+            "defense": 5.0
+        },
+        "ratios_stats": {
+            "power": 1.3207547169811322,
+            "speed": 0.7547169811320755,
+            "trick": 1.1320754716981132,
+            "recovery": 0.5660377358490566,
+            "defense": 0.9433962264150944
+        }
+    },
+    {
+        "id": 76,
+        "nom_personnage": "Zeke",
+        "nom_capacite": "Phase Shift (Off)",
+        "niveau": 4.2,
+        "tier": "Elite Tier",
+        "stat_principale": "power",
+        "stats_de_base": {
+            "power": 5.0,
+            "speed": 3.0,
+            "trick": 6.0,
+            "recovery": 1.0,
+            "defense": 1.0
+        },
+        "ratios_stats": {
+            "power": 0.3125,
+            "speed": 0.1875,
+            "trick": 0.375,
+            "recovery": 0.0625,
+            "defense": 0.0625
+        }
+    },
+    {
+        "id": 77,
+        "nom_personnage": "Zeke",
+        "nom_capacite": "Phase Shift (Def)",
+        "niveau": 4.2,
+        "tier": "Elite Tier",
+        "stat_principale": "power",
+        "stats_de_base": {
+            "power": 1.0,
+            "speed": 1.0,
+            "trick": 6.0,
+            "recovery": 3.0,
+            "defense": 5.0
+        },
+        "ratios_stats": {
+            "power": 0.0625,
+            "speed": 0.0625,
+            "trick": 0.375,
+            "recovery": 0.1875,
+            "defense": 0.3125
+        }
     }
 ]
