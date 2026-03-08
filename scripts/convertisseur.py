@@ -48,7 +48,7 @@ with open('scripts/unodex - unodex.csv', mode='r', encoding='utf-8') as fichier_
             continue
 
 # Sauvegarde en JSON
-with open('capacites.json', 'w', encoding='utf-8') as f:
+with open('./src/capacites.json', 'w', encoding='utf-8') as f:
     json.dump(capacites, f, indent=4, ensure_ascii=False)
 
 print(f"Génération terminée : {len(capacites)} capacités exportées avec leurs ratios.")
