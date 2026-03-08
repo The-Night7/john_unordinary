@@ -159,7 +159,7 @@ export default function App() {
       // stats[key] = Math.round(stats[key] * 10) / 10;
       
       // Option 2 : Pour arrondir à l'entier, utilise plutôt la ligne ci-dessous
-      stats[key] = Math.round(stats[key]);
+      // stats[key] = Math.round(stats[key]);
     }
 
     return stats;
