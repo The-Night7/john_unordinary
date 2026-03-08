@@ -113,49 +113,57 @@ export default function App() {
   const auraPercentage = Math.min(100, (currentAuraDrain / maxAura) * 100);
 
   // --- MOTEUR DE FUSION ---
-  const statsFinales = useMemo(() => {
-    let stats = { 
-      power: JOHN_RATIOS.power * johnLevel, 
-      speed: JOHN_RATIOS.speed * johnLevel, 
-      trick: JOHN_RATIOS.trick * johnLevel, 
-      recovery: JOHN_RATIOS.recovery * johnLevel, 
-      defense: JOHN_RATIOS.defense * johnLevel 
-    };
-    
-    slots.forEach(slotId => {
-      if (!slotId) return;
-      const cap = capacitesData.find(c => c.id === parseInt(slotId));
-      if (!cap) return;
-      
-      let statsCalculees = {};
-      
-      if (johnLevel >= cap.niveau) {
-        for (let key in cap.stats_de_base) statsCalculees[key] = cap.stats_de_base[key];
-      } else {
-        for (let key in cap.ratios_stats) statsCalculees[key] = cap.ratios_stats[key] * johnLevel;
-      }
+  const statsFinales = useMemo(() => {
+    let stats = { 
+      power: JOHN_RATIOS.power * johnLevel, 
+      speed: JOHN_RATIOS.speed * johnLevel, 
+      trick: JOHN_RATIOS.trick * johnLevel, 
+      recovery: JOHN_RATIOS.recovery * johnLevel, 
+      defense: JOHN_RATIOS.defense * johnLevel 
+    };
+    
+    slots.forEach(slotId => {
+      if (!slotId) return;
+      const cap = capacitesData.find(c => c.id === parseInt(slotId));
+      if (!cap) return;
+      
+      let statsCalculees: Record<string, number> = {};
+      
+      if (johnLevel >= cap.niveau) {
+        for (let key in cap.stats_de_base) statsCalculees[key] = cap.stats_de_base[key];
+      } else {
+        for (let key in cap.ratios_stats) statsCalculees[key] = cap.ratios_stats[key] * johnLevel;
+      }
 
-      // Trouver la statistique la plus élevée de cette capacité (EN IGNORANT LE TRICK)
-      let maxStatKey: string | null = null; 
-      let maxStatValue = -1;
-      for (let key in statsCalculees) {
-        // On ajoute la condition key !== 'trick'
-        if (key !== 'trick' && statsCalculees[key] > maxStatValue) {
-          maxStatValue = statsCalculees[key];
-          maxStatKey = key;
-        }
-      }
+      // Trouver la statistique la plus élevée de cette capacité (EN IGNORANT LE TRICK)
+      let maxStatKey: string | null = null; 
+      let maxStatValue = -1;
+      for (let key in statsCalculees) {
+        if (key !== 'trick' && statsCalculees[key] > maxStatValue) {
+          maxStatValue = statsCalculees[key];
+          maxStatKey = key;
+        }
+      }
 
-      // Appliquer le bonus de 1.5 uniquement à la meilleure statistique (hors trick)
-      for (let key in statsCalculees) {
-        let valeur = statsCalculees[key];
-        if (key === maxStatKey) valeur *= 1.5;
-        stats[key] = Math.max(stats[key], valeur);
-      }
-    });
+      // Appliquer le bonus de 1.5 uniquement à la meilleure statistique (hors trick)
+      for (let key in statsCalculees) {
+        let valeur = statsCalculees[key];
+        if (key === maxStatKey) valeur *= 1.5;
+        stats[key] = Math.max(stats[key], valeur);
+      }
+    });
 
-    return stats;
-  }, [johnLevel, slots]);
+    // --- APPLICATION DE L'ARRONDI ICI ---
+    for (let key in stats) {
+      // Option 1 : Arrondi à 1 décimale (ex: 7.5)
+      // stats[key] = Math.round(stats[key] * 10) / 10;
+      
+      // Option 2 : Pour arrondir à l'entier, utilise plutôt la ligne ci-dessous
+      stats[key] = Math.round(stats[key]);
+    }
+
+    return stats;
+  }, [johnLevel, slots]);
 
   const updateSlot = (index: number, value: string) => {
     // If the user is removing an ability (emptying the slot), always allow it
