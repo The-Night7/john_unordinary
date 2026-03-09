@@ -95,7 +95,7 @@ const RadarChart = ({ stats }) => {
 
 // --- 3. APPLICATION PRINCIPALE ---
 export default function App() {
-  const [johnLevel, setJohnLevel] = useState(7.5);
+  const [johnLevel, setJohnLevel] = useState(7.6);
   const [slots, setSlots] = useState(["", "", "", ""]);
 
   // --- LOGIQUE DE RÉSERVE D'AURA (Aura Capacity Logic) ---
@@ -155,7 +155,7 @@ export default function App() {
 
     // --- APPLICATION DE L'ARRONDI ICI ---
     for (let key in stats) {
-      // Option 1 : Arrondi à 1 décimale (ex: 7.5)
+      // Option 1 : Arrondi à 1 décimale (ex: 7.6)
       // stats[key] = Math.round(stats[key] * 10) / 10;
       
       // Option 2 : Pour arrondir à l'entier, utilise plutôt la ligne ci-dessous
