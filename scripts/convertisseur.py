@@ -25,6 +25,7 @@ with open('scripts/unodex - unodex.csv', mode='r', encoding='utf-8') as fichier_
             
             niveau = float(ligne['Level'].replace(',', '.'))
             nature = ligne.get('Nature', '').strip()
+            type_capacite = ligne.get('Type', '').strip() # <-- NOUVEAU : Récupération du Type
             
             # Identifier la stat principale (hors trick)
             stats_sans_trick = {k: v for k, v in stats.items() if k != 'trick'}
@@ -54,6 +55,10 @@ with open('scripts/unodex - unodex.csv', mode='r', encoding='utf-8') as fichier_
             for cle, valeur in stats.items():
                 ratios[cle] = valeur / niveau if niveau > 0 else 0
             
+            # Déterminer si la capacité est copiable (les capacités mentales et meta ne le sont pas)
+            type_lower = type_capacite.lower()
+            est_copiable = type_lower not in ['mental', 'meta']
+            
             capacites.append({
                 "id": id_counter,
                 "nom_personnage": ligne['Name'],
@@ -61,7 +66,9 @@ with open('scripts/unodex - unodex.csv', mode='r', encoding='utf-8') as fichier_
                 "niveau": niveau,
                 "tier": ligne.get('Tier', ''),
                 "nature": nature,
-                "stat_principale": stat_principale, # Contient maintenant la stat départagée
+                "type": type_capacite, 
+                "copiable": est_copiable,
+                "stat_principale": stat_principale,
                 "stats_de_base": stats,
                 "ratios_stats": ratios
             })
@@ -73,4 +80,4 @@ with open('scripts/unodex - unodex.csv', mode='r', encoding='utf-8') as fichier_
 with open('./src/capacites.json', 'w', encoding='utf-8') as f:
     json.dump(capacites, f, indent=4, ensure_ascii=False)
 
-print(f"Génération terminée : {len(capacites)} capacités exportées avec leurs ratios et natures.")
+print(f"Génération terminée : {len(capacites)} capacités exportées.")

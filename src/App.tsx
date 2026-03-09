@@ -274,11 +274,26 @@ export default function App() {
                     <option value="">-- Emplacement Vide --</option>
                     {capacitesData.map(cap => {
                       const cost = getAuraCost(cap.niveau);
-                      // On grise/désactive l'option si elle dépasse l'aura dispo (sauf si c'est la capacité déjà équipée)
+                      // On grise/désactive l'option si elle dépasse l'aura dispo
                       const isTooExpensive = (currentAuraDrain - currentSlotDrain + cost) > maxAura;
+                      // On grise également si la capacité n'est pas copiable (Mental ou Meta)
+                      const isUncopyable = cap.copiable === false;
+                      
+                      // Déterminer la raison de la désactivation pour l'afficher à l'utilisateur
+                      let disabledReason = "";
+                      if (isUncopyable) {
+                        // Affiche dynamiquement le type (ex: "[Mental - Non copiable]" ou "[Meta - Non copiable]")
+                        disabledReason = ` [${cap.type || 'Inconnu'} - Non copiable]`;
+                      } else if (isTooExpensive && cap.id !== parseInt(slot)) {
+                        disabledReason = " [Aura Insuffisante]";
+                      }
+
+                      // La capacité est désactivée si elle est non-copiable, ou si elle coûte trop cher (sauf si elle est déjà sélectionnée)
+                      const isDisabled = isUncopyable || (isTooExpensive && cap.id !== parseInt(slot));
+
                       return (
-                        <option key={cap.id} value={cap.id} disabled={isTooExpensive && cap.id !== parseInt(slot)}>
-                          {cap.nom_capacite} ({cap.nom_personnage}) - Niv {cap.niveau} {isTooExpensive && cap.id !== parseInt(slot) ? " [Aura Insuffisante]" : ""}
+                        <option key={cap.id} value={cap.id} disabled={isDisabled}>
+                          {cap.nom_capacite} ({cap.nom_personnage}) - Niv {cap.niveau} {disabledReason}
                         </option>
                       )
                     })}
