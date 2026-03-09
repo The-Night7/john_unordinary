@@ -4,7 +4,7 @@ import capacitesData from './capacites.json';
 
 // --- 1. CONFIGURATION DES STATS DE BASE DE JOHN ---
 const REFERENCE_LEVEL = 7.6;
-const JOHN_BASE_STATS = { power: 2, speed: 1, trick: 16, recovery: 1, defense: 1 };
+const JOHN_BASE_STATS = { power: 4, speed: 1, trick: 16, recovery: 1, defense: 1 };
 
 const JOHN_RATIOS = {
   power: JOHN_BASE_STATS.power / REFERENCE_LEVEL,
@@ -135,15 +135,9 @@ export default function App() {
         for (let key in cap.ratios_stats) statsCalculees[key] = cap.ratios_stats[key] * johnLevel;
       }
 
-      // Trouver la statistique la plus élevée de cette capacité (EN IGNORANT LE TRICK)
-      let maxStatKey: string | null = null; 
-      let maxStatValue = -1;
-      for (let key in statsCalculees) {
-        if (key !== 'trick' && statsCalculees[key] > maxStatValue) {
-          maxStatValue = statsCalculees[key];
-          maxStatKey = key;
-        }
-      }
+      // La statistique principale à amplifier est déjà calculée dans le JSON 
+      // (prend en compte la nature en cas d'égalité des stats de base)
+      let maxStatKey = cap.stat_principale;
 
       // Appliquer le bonus de 1.5 uniquement à la meilleure statistique (hors trick)
       for (let key in statsCalculees) {

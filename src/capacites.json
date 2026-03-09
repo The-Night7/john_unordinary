@@ -5,7 +5,8 @@
         "nom_capacite": "Troll",
         "niveau": 1.2,
         "tier": "Low Tier",
-        "stat_principale": "trick",
+        "nature": "Support",
+        "stat_principale": "power",
         "stats_de_base": {
             "power": 1.0,
             "speed": 1.0,
@@ -27,7 +28,8 @@
         "nom_capacite": "Illumination",
         "niveau": 1.5,
         "tier": "Low Tier",
-        "stat_principale": "trick",
+        "nature": "Support",
+        "stat_principale": "recovery",
         "stats_de_base": {
             "power": 1.0,
             "speed": 1.0,
@@ -49,7 +51,8 @@
         "nom_capacite": "Needles",
         "niveau": 1.8,
         "tier": "Low Tier",
-        "stat_principale": "trick",
+        "nature": "Attaque",
+        "stat_principale": "power",
         "stats_de_base": {
             "power": 1.0,
             "speed": 1.0,
@@ -71,6 +74,7 @@
         "nom_capacite": "Heat Palm",
         "niveau": 2.1,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 2.0,
@@ -93,6 +97,7 @@
         "nom_capacite": "Missiles",
         "niveau": 2.2,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 3.0,
@@ -115,6 +120,7 @@
         "nom_capacite": "Phantom Fist",
         "niveau": 2.4,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 2.0,
@@ -137,7 +143,8 @@
         "nom_capacite": "Rock Arm",
         "niveau": 2.4,
         "tier": "Mid Tier",
-        "stat_principale": "power",
+        "nature": "Defense",
+        "stat_principale": "defense",
         "stats_de_base": {
             "power": 2.0,
             "speed": 1.0,
@@ -159,6 +166,7 @@
         "nom_capacite": "Strong Kick",
         "niveau": 2.4,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 3.0,
@@ -181,6 +189,7 @@
         "nom_capacite": "Strong Punch",
         "niveau": 2.4,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 4.0,
@@ -203,6 +212,7 @@
         "nom_capacite": "Charge Shot",
         "niveau": 2.4,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 3.0,
@@ -225,6 +235,7 @@
         "nom_capacite": "Quick Strike",
         "niveau": 2.4,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 2.0,
@@ -247,6 +258,7 @@
         "nom_capacite": "Speed",
         "niveau": 2.4,
         "tier": "Mid Tier",
+        "nature": "Vivacité",
         "stat_principale": "speed",
         "stats_de_base": {
             "power": 2.0,
@@ -269,7 +281,8 @@
         "nom_capacite": "Flash Forward",
         "niveau": 2.5,
         "tier": "Mid Tier",
-        "stat_principale": "trick",
+        "nature": "Support",
+        "stat_principale": "recovery",
         "stats_de_base": {
             "power": 1.0,
             "speed": 1.0,
@@ -291,6 +304,7 @@
         "nom_capacite": "Lazor",
         "niveau": 2.5,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 3.0,
@@ -313,6 +327,7 @@
         "nom_capacite": "Hair Growth",
         "niveau": 2.6,
         "tier": "Mid Tier",
+        "nature": "Vivacité",
         "stat_principale": "speed",
         "stats_de_base": {
             "power": 1.0,
@@ -335,7 +350,8 @@
         "nom_capacite": "Dizzy Punch",
         "niveau": 2.6,
         "tier": "Mid Tier",
-        "stat_principale": "trick",
+        "nature": "Support",
+        "stat_principale": "recovery",
         "stats_de_base": {
             "power": 1.0,
             "speed": 1.0,
@@ -357,6 +373,7 @@
         "nom_capacite": "Ground Pound",
         "niveau": 2.6,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 3.0,
@@ -379,7 +396,8 @@
         "nom_capacite": "Hand Blade",
         "niveau": 2.6,
         "tier": "Mid Tier",
-        "stat_principale": "trick",
+        "nature": "Attaque",
+        "stat_principale": "power",
         "stats_de_base": {
             "power": 2.0,
             "speed": 2.0,
@@ -401,7 +419,8 @@
         "nom_capacite": "Barrage",
         "niveau": 2.7,
         "tier": "Mid Tier",
-        "stat_principale": "trick",
+        "nature": "Vivacité",
+        "stat_principale": "speed",
         "stats_de_base": {
             "power": 2.0,
             "speed": 2.0,
@@ -423,6 +442,7 @@
         "nom_capacite": "Catch Up",
         "niveau": 2.7,
         "tier": "Mid Tier",
+        "nature": "Vivacité",
         "stat_principale": "speed",
         "stats_de_base": {
             "power": 2.0,
@@ -445,6 +465,7 @@
         "nom_capacite": "Fortify",
         "niveau": 2.7,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 3.0,
@@ -467,6 +488,7 @@
         "nom_capacite": "Strength",
         "niveau": 2.7,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 4.0,
@@ -489,6 +511,7 @@
         "nom_capacite": "Clobber",
         "niveau": 2.8,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 3.0,
@@ -511,6 +534,7 @@
         "nom_capacite": "Shockwave",
         "niveau": 2.8,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 3.0,
@@ -533,6 +557,7 @@
         "nom_capacite": "Heavy-Hitter",
         "niveau": 2.8,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 3.0,
@@ -555,6 +580,7 @@
         "nom_capacite": "Phantom Push",
         "niveau": 2.8,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 3.0,
@@ -577,6 +603,7 @@
         "nom_capacite": "Archer",
         "niveau": 2.8,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 4.0,
@@ -599,6 +626,7 @@
         "nom_capacite": "Stone Skin",
         "niveau": 2.8,
         "tier": "Mid Tier",
+        "nature": "Defense",
         "stat_principale": "defense",
         "stats_de_base": {
             "power": 2.0,
@@ -621,6 +649,7 @@
         "nom_capacite": "Vigor",
         "niveau": 2.9,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 4.0,
@@ -643,6 +672,7 @@
         "nom_capacite": "Impact",
         "niveau": 3.1,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 4.0,
@@ -665,6 +695,7 @@
         "nom_capacite": "Regeneration",
         "niveau": 3.1,
         "tier": "Mid Tier",
+        "nature": "Support",
         "stat_principale": "recovery",
         "stats_de_base": {
             "power": 2.0,
@@ -687,6 +718,7 @@
         "nom_capacite": "Arcane Shot",
         "niveau": 3.2,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 4.0,
@@ -709,6 +741,7 @@
         "nom_capacite": "Tremor",
         "niveau": 3.2,
         "tier": "Mid Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 4.0,
@@ -731,6 +764,7 @@
         "nom_capacite": "Charge",
         "niveau": 3.4,
         "tier": "Mid Tier",
+        "nature": "Vivacité",
         "stat_principale": "speed",
         "stats_de_base": {
             "power": 2.0,
@@ -753,6 +787,7 @@
         "nom_capacite": "Healing",
         "niveau": 3.5,
         "tier": "Elite Tier",
+        "nature": "Support",
         "stat_principale": "recovery",
         "stats_de_base": {
             "power": 1.0,
@@ -775,7 +810,8 @@
         "nom_capacite": "Sleep Touch",
         "niveau": 3.5,
         "tier": "Elite Tier",
-        "stat_principale": "trick",
+        "nature": "Vivacité",
+        "stat_principale": "speed",
         "stats_de_base": {
             "power": 2.0,
             "speed": 3.0,
@@ -797,6 +833,7 @@
         "nom_capacite": "Conjure: Disks",
         "niveau": 3.5,
         "tier": "Elite Tier",
+        "nature": "Defense",
         "stat_principale": "defense",
         "stats_de_base": {
             "power": 3.0,
@@ -819,6 +856,7 @@
         "nom_capacite": "Grenadier",
         "niveau": 3.6,
         "tier": "Elite Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 5.0,
@@ -841,6 +879,7 @@
         "nom_capacite": "Superhuman",
         "niveau": 3.6,
         "tier": "Elite Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 3.0,
@@ -863,6 +902,7 @@
         "nom_capacite": "Explosion",
         "niveau": 3.6,
         "tier": "Elite Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 4.0,
@@ -885,6 +925,7 @@
         "nom_capacite": "Crescent Slash",
         "niveau": 3.7,
         "tier": "Elite Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 5.0,
@@ -907,6 +948,7 @@
         "nom_capacite": "Heal Link",
         "niveau": 3.8,
         "tier": "Elite Tier",
+        "nature": "Support",
         "stat_principale": "recovery",
         "stats_de_base": {
             "power": 1.0,
@@ -929,7 +971,8 @@
         "nom_capacite": "Fleetstep",
         "niveau": 3.8,
         "tier": "Elite Tier",
-        "stat_principale": "trick",
+        "nature": "Vivacité",
+        "stat_principale": "speed",
         "stats_de_base": {
             "power": 3.0,
             "speed": 4.0,
@@ -951,6 +994,7 @@
         "nom_capacite": "Iron Knuckle",
         "niveau": 3.8,
         "tier": "Elite Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 5.0,
@@ -973,6 +1017,7 @@
         "nom_capacite": "Shadow Flame",
         "niveau": 3.8,
         "tier": "Elite Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 6.0,
@@ -995,6 +1040,7 @@
         "nom_capacite": "Teleportation",
         "niveau": 3.8,
         "tier": "Elite Tier",
+        "nature": "Vivacité",
         "stat_principale": "speed",
         "stats_de_base": {
             "power": 1.0,
@@ -1017,6 +1063,7 @@
         "nom_capacite": "Whirlwind",
         "niveau": 3.8,
         "tier": "Elite Tier",
+        "nature": "Vivacité",
         "stat_principale": "speed",
         "stats_de_base": {
             "power": 3.0,
@@ -1039,6 +1086,7 @@
         "nom_capacite": "Demon Claw",
         "niveau": 3.8,
         "tier": "Elite Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 5.0,
@@ -1061,6 +1109,7 @@
         "nom_capacite": "Heal",
         "niveau": 3.8,
         "tier": "Elite Tier",
+        "nature": "Support",
         "stat_principale": "recovery",
         "stats_de_base": {
             "power": 2.0,
@@ -1083,6 +1132,7 @@
         "nom_capacite": "Super Strength",
         "niveau": 4.0,
         "tier": "Elite Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 6.0,
@@ -1105,6 +1155,7 @@
         "nom_capacite": "Demon Blade",
         "niveau": 4.2,
         "tier": "Elite Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 6.0,
@@ -1127,7 +1178,8 @@
         "nom_capacite": "Phase Shift (Def)",
         "niveau": 4.2,
         "tier": "Elite Tier",
-        "stat_principale": "trick",
+        "nature": "Defense",
+        "stat_principale": "defense",
         "stats_de_base": {
             "power": 1.0,
             "speed": 1.0,
@@ -1149,7 +1201,8 @@
         "nom_capacite": "Phase Shift (Off)",
         "niveau": 4.2,
         "tier": "Elite Tier",
-        "stat_principale": "trick",
+        "nature": "Attaque",
+        "stat_principale": "power",
         "stats_de_base": {
             "power": 5.0,
             "speed": 3.0,
@@ -1171,6 +1224,7 @@
         "nom_capacite": "Contact Shred",
         "niveau": 4.2,
         "tier": "Elite Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 6.0,
@@ -1193,7 +1247,8 @@
         "nom_capacite": "Nightmare",
         "niveau": 4.2,
         "tier": "Elite Tier",
-        "stat_principale": "trick",
+        "nature": "Defense",
+        "stat_principale": "defense",
         "stats_de_base": {
             "power": 1.0,
             "speed": 2.0,
@@ -1215,7 +1270,8 @@
         "nom_capacite": "Invisibility",
         "niveau": 4.4,
         "tier": "Elite Tier",
-        "stat_principale": "trick",
+        "nature": "Vivacité",
+        "stat_principale": "speed",
         "stats_de_base": {
             "power": 1.0,
             "speed": 3.0,
@@ -1237,6 +1293,7 @@
         "nom_capacite": "Armor Suit",
         "niveau": 4.4,
         "tier": "Elite Tier",
+        "nature": "Defense",
         "stat_principale": "defense",
         "stats_de_base": {
             "power": 4.0,
@@ -1259,6 +1316,7 @@
         "nom_capacite": "Crimson Armor",
         "niveau": 4.7,
         "tier": "Elite Tier",
+        "nature": "Defense",
         "stat_principale": "defense",
         "stats_de_base": {
             "power": 5.0,
@@ -1281,6 +1339,7 @@
         "nom_capacite": "Hunter",
         "niveau": 4.8,
         "tier": "Elite Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 6.0,
@@ -1303,6 +1362,7 @@
         "nom_capacite": "Spectral Claw",
         "niveau": 5.0,
         "tier": "High Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 8.0,
@@ -1325,6 +1385,7 @@
         "nom_capacite": "Arachnid",
         "niveau": 5.1,
         "tier": "High Tier",
+        "nature": "Defense",
         "stat_principale": "defense",
         "stats_de_base": {
             "power": 4.0,
@@ -1347,6 +1408,7 @@
         "nom_capacite": "Energy Discharge",
         "niveau": 5.1,
         "tier": "High Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 8.0,
@@ -1369,7 +1431,8 @@
         "nom_capacite": "Conjure: Vines",
         "niveau": 5.3,
         "tier": "High Tier",
-        "stat_principale": "trick",
+        "nature": "Attaque",
+        "stat_principale": "power",
         "stats_de_base": {
             "power": 5.0,
             "speed": 3.0,
@@ -1391,6 +1454,7 @@
         "nom_capacite": "Predator",
         "niveau": 5.3,
         "tier": "High Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 7.0,
@@ -1413,7 +1477,8 @@
         "nom_capacite": "Duplication",
         "niveau": 5.6,
         "tier": "High Tier",
-        "stat_principale": "trick",
+        "nature": "Attaque",
+        "stat_principale": "power",
         "stats_de_base": {
             "power": 5.0,
             "speed": 3.0,
@@ -1435,7 +1500,8 @@
         "nom_capacite": "Imprison",
         "niveau": 5.6,
         "tier": "High Tier",
-        "stat_principale": "power",
+        "nature": "Defense",
+        "stat_principale": "defense",
         "stats_de_base": {
             "power": 7.0,
             "speed": 2.0,
@@ -1457,6 +1523,7 @@
         "nom_capacite": "Lightining",
         "niveau": 5.8,
         "tier": "High Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 8.0,
@@ -1479,6 +1546,7 @@
         "nom_capacite": "Lightning",
         "niveau": 5.8,
         "tier": "High Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 7.0,
@@ -1501,6 +1569,7 @@
         "nom_capacite": "Demolition",
         "niveau": 5.8,
         "tier": "High Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 8.0,
@@ -1523,6 +1592,7 @@
         "nom_capacite": "Botanist",
         "niveau": 6.0,
         "tier": "God Tier",
+        "nature": "Defense",
         "stat_principale": "defense",
         "stats_de_base": {
             "power": 5.0,
@@ -1545,7 +1615,8 @@
         "nom_capacite": "Paralysis",
         "niveau": 6.2,
         "tier": "God Tier",
-        "stat_principale": "trick",
+        "nature": "Support",
+        "stat_principale": "speed",
         "stats_de_base": {
             "power": 3.0,
             "speed": 4.0,
@@ -1567,7 +1638,8 @@
         "nom_capacite": "Hydrofreeze",
         "niveau": 6.2,
         "tier": "God Tier",
-        "stat_principale": "trick",
+        "nature": "Defense",
+        "stat_principale": "defense",
         "stats_de_base": {
             "power": 5.0,
             "speed": 3.0,
@@ -1589,6 +1661,7 @@
         "nom_capacite": "Blademaster",
         "niveau": 6.3,
         "tier": "God Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 9.0,
@@ -1611,6 +1684,7 @@
         "nom_capacite": "Barrier",
         "niveau": 6.5,
         "tier": "God Tier",
+        "nature": "Defense",
         "stat_principale": "defense",
         "stats_de_base": {
             "power": 7.0,
@@ -1633,6 +1707,7 @@
         "nom_capacite": "Time Manipulation",
         "niveau": 6.6,
         "tier": "God Tier",
+        "nature": "Vivacité",
         "stat_principale": "speed",
         "stats_de_base": {
             "power": 7.0,
@@ -1655,7 +1730,8 @@
         "nom_capacite": "Minefield",
         "niveau": 6.8,
         "tier": "God Tier",
-        "stat_principale": "trick",
+        "nature": "Attaque",
+        "stat_principale": "power",
         "stats_de_base": {
             "power": 8.0,
             "speed": 4.0,
@@ -1677,7 +1753,8 @@
         "nom_capacite": "Particles",
         "niveau": 6.8,
         "tier": "God Tier",
-        "stat_principale": "trick",
+        "nature": "Attaque",
+        "stat_principale": "power",
         "stats_de_base": {
             "power": 8.0,
             "speed": 3.0,
@@ -1699,7 +1776,8 @@
         "nom_capacite": "Sensory Control",
         "niveau": 7.3,
         "tier": "God Tier",
-        "stat_principale": "trick",
+        "nature": "Defense",
+        "stat_principale": "defense",
         "stats_de_base": {
             "power": 5.0,
             "speed": 3.0,
@@ -1721,6 +1799,7 @@
         "nom_capacite": "Time Manipulation",
         "niveau": 7.4,
         "tier": "God Tier",
+        "nature": "Vivacité",
         "stat_principale": "speed",
         "stats_de_base": {
             "power": 9.0,
@@ -1743,6 +1822,7 @@
         "nom_capacite": "Barrier",
         "niveau": 7.5,
         "tier": "God Tier",
+        "nature": "Defense",
         "stat_principale": "defense",
         "stats_de_base": {
             "power": 8.0,
@@ -1765,7 +1845,8 @@
         "nom_capacite": "Aura Manipulation",
         "niveau": 7.6,
         "tier": "God Tier",
-        "stat_principale": "trick",
+        "nature": "Stratege",
+        "stat_principale": "power",
         "stats_de_base": {
             "power": 4.0,
             "speed": 1.0,
@@ -1787,6 +1868,7 @@
         "nom_capacite": "Telekinesis",
         "niveau": 7.8,
         "tier": "God Tier",
+        "nature": "Attaque",
         "stat_principale": "power",
         "stats_de_base": {
             "power": 14.0,
@@ -1809,6 +1891,7 @@
         "nom_capacite": "Time Manipulation",
         "niveau": 8.0,
         "tier": "God Tier",
+        "nature": "Vivacité",
         "stat_principale": "speed",
         "stats_de_base": {
             "power": 12.0,
