@@ -111,8 +111,6 @@ export default function App() {
 
   const auraRemaining = parseFloat((maxAura - currentAuraDrain).toFixed(1));
   const auraPercentage = Math.min(100, (currentAuraDrain / maxAura) * 100);
-  const auraRemaining = parseFloat((maxAura - currentAuraDrain).toFixed(1));
-  const auraPercentage = Math.min(100, (currentAuraDrain / maxAura) * 100);
 
   // --- NOUVELLE LOGIQUE : ESTIMATION DU TEMPS DE MAINTIEN ---
   const estimatedTimeMinutes = useMemo(() => {
