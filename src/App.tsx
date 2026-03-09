@@ -111,6 +111,27 @@ export default function App() {
 
   const auraRemaining = parseFloat((maxAura - currentAuraDrain).toFixed(1));
   const auraPercentage = Math.min(100, (currentAuraDrain / maxAura) * 100);
+  const auraRemaining = parseFloat((maxAura - currentAuraDrain).toFixed(1));
+  const auraPercentage = Math.min(100, (currentAuraDrain / maxAura) * 100);
+
+  // --- NOUVELLE LOGIQUE : ESTIMATION DU TEMPS DE MAINTIEN ---
+  const estimatedTimeMinutes = useMemo(() => {
+    if (currentAuraDrain === 0) return Infinity;
+    
+    // On calcule ce que coûterait une capacité exactement au niveau de John
+    const refDrain = getAuraCost(johnLevel); 
+    
+    // Formule : 120 minutes (2h) pour un drain équivalent à son niveau
+    return Math.round(120 * (refDrain / currentAuraDrain));
+  }, [currentAuraDrain, johnLevel]);
+
+  const formatTime = (mins) => {
+    if (mins === Infinity) return "Infini";
+    if (mins < 60) return `${mins} min`;
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    return m > 0 ? `${h}h ${m}min` : `${h}h`;
+  };
 
   // --- MOTEUR DE FUSION ---
   const statsFinales = useMemo(() => {
@@ -249,11 +270,20 @@ export default function App() {
                 style={{ width: `${auraPercentage}%` }}
               ></div>
             </div>
+            
             {auraRemaining <= 5 && (
               <p className="text-red-400 text-xs font-bold mt-3 flex items-center gap-1">
                 <BatteryWarning size={14} /> "Je n'ai plus beaucoup d'aura en réserve..."
               </p>
             )}
+
+            {/* NOUVEAU : Affichage du temps estimé */}
+            <div className="flex justify-between items-center mt-4 border-t border-neutral-800 pt-3">
+              <span className="text-sm font-semibold text-neutral-400">Temps de maintien estimé :</span>
+              <span className={`text-sm font-black tracking-wider ${currentAuraDrain === 0 ? 'text-neutral-500' : auraPercentage > 80 ? 'text-red-400' : 'text-yellow-500'}`}>
+                {formatTime(estimatedTimeMinutes)}
+              </span>
+            </div>
           </div>
 
           {/* Emplacements de copie */}
