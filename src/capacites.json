@@ -1656,8 +1656,8 @@
         "niveau": 5.7,
         "tier": "High Tier",
         "nature": "Attaque",
-        "type": "Mental",
-        "copiable": false,
+        "type": "Quantique",
+        "copiable": true,
         "stat_principale": "speed",
         "stats_de_base": {
             "power": 4.0,
@@ -1756,8 +1756,8 @@
         "niveau": 5.8,
         "tier": "High Tier",
         "nature": "Attaque",
-        "type": "Quantique",
-        "copiable": true,
+        "type": "Mental",
+        "copiable": false,
         "stat_principale": "power",
         "stats_de_base": {
             "power": 9.0,
