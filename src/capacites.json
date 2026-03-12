@@ -1651,9 +1651,34 @@
     },
     {
         "id": 67,
+        "nom_personnage": "\"Scorch\"",
+        "nom_capacite": "Psy-Blast+",
+        "niveau": 5.7,
+        "tier": "High Tier",
+        "nature": "Attaque",
+        "type": "Mental",
+        "copiable": false,
+        "stat_principale": "power",
+        "stats_de_base": {
+            "power": 9.0,
+            "speed": 4.0,
+            "trick": 6.0,
+            "recovery": 2.0,
+            "defense": 3.0
+        },
+        "ratios_stats": {
+            "power": 1.5789473684210527,
+            "speed": 0.7017543859649122,
+            "trick": 1.0526315789473684,
+            "recovery": 0.3508771929824561,
+            "defense": 0.5263157894736842
+        }
+    },
+    {
+        "id": 68,
         "nom_personnage": "\"Cinder\"",
         "nom_capacite": "Azure Storm+",
-        "niveau": 5.7,
+        "niveau": 5.8,
         "tier": "High Tier",
         "nature": "Attaque",
         "type": "Quantique",
@@ -1663,19 +1688,19 @@
             "power": 4.0,
             "speed": 5.0,
             "trick": 8.0,
-            "recovery": 3.0,
-            "defense": 4.0
+            "recovery": 4.0,
+            "defense": 5.0
         },
         "ratios_stats": {
-            "power": 0.7017543859649122,
-            "speed": 0.8771929824561403,
-            "trick": 1.4035087719298245,
-            "recovery": 0.5263157894736842,
-            "defense": 0.7017543859649122
+            "power": 0.6896551724137931,
+            "speed": 0.8620689655172414,
+            "trick": 1.3793103448275863,
+            "recovery": 0.6896551724137931,
+            "defense": 0.8620689655172414
         }
     },
     {
-        "id": 68,
+        "id": 69,
         "nom_personnage": "Rei",
         "nom_capacite": "Lightining",
         "niveau": 5.8,
@@ -1700,7 +1725,7 @@
         }
     },
     {
-        "id": 69,
+        "id": 70,
         "nom_personnage": "Remi",
         "nom_capacite": "Lightning",
         "niveau": 5.8,
@@ -1725,7 +1750,7 @@
         }
     },
     {
-        "id": 70,
+        "id": 71,
         "nom_personnage": "Verte",
         "nom_capacite": "Demolition",
         "niveau": 5.8,
@@ -1747,31 +1772,6 @@
             "trick": 0.8620689655172414,
             "recovery": 0.6896551724137931,
             "defense": 1.0344827586206897
-        }
-    },
-    {
-        "id": 71,
-        "nom_personnage": "\"Scorch\"",
-        "nom_capacite": "Psy-Blast+",
-        "niveau": 5.8,
-        "tier": "High Tier",
-        "nature": "Attaque",
-        "type": "Mental",
-        "copiable": false,
-        "stat_principale": "power",
-        "stats_de_base": {
-            "power": 9.0,
-            "speed": 4.0,
-            "trick": 6.0,
-            "recovery": 2.0,
-            "defense": 3.0
-        },
-        "ratios_stats": {
-            "power": 1.5517241379310345,
-            "speed": 0.6896551724137931,
-            "trick": 1.0344827586206897,
-            "recovery": 0.3448275862068966,
-            "defense": 0.5172413793103449
         }
     },
     {
