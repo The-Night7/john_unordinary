@@ -1427,8 +1427,8 @@
     {
         "id": 58,
         "nom_personnage": "\"Valorian\"",
-        "nom_capacite": "Crimson Armor",
-        "niveau": 4.7,
+        "nom_capacite": "Royal Guard",
+        "niveau": 4.6,
         "tier": "Elite Tier",
         "nature": "Defense",
         "type": "Creation",
@@ -1442,11 +1442,11 @@
             "defense": 6.0
         },
         "ratios_stats": {
-            "power": 1.0638297872340425,
-            "speed": 0.6382978723404255,
-            "trick": 1.0638297872340425,
-            "recovery": 0.425531914893617,
-            "defense": 1.276595744680851
+            "power": 1.0869565217391306,
+            "speed": 0.6521739130434783,
+            "trick": 1.0869565217391306,
+            "recovery": 0.4347826086956522,
+            "defense": 1.3043478260869565
         }
     },
     {
