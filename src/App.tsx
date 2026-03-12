@@ -1,6 +1,46 @@
 import React, { useState, useMemo } from 'react';
-import { Shield, Zap, Swords, Brain, Heart, ChevronDown, Battery, BatteryWarning } from 'lucide-react';
+import { Shield, Zap, Swords, Brain, Heart, ChevronDown, Battery, BatteryWarning, Globe } from 'lucide-react';
 import capacitesData from './capacites.json';
+
+// --- 0. DICTIONNAIRE DE TRADUCTION ---
+const translations = {
+  en: {
+    title: "JOHN DOE",
+    subtitle: "Simulator - Aura Manipulation & Capacity",
+    currentLevel: "Current Level",
+    auraReserves: "Aura Reserves",
+    auraSubtitle: "High-level abilities drain more aura.",
+    lowAuraWarning: '"I don\'t have much aura left..."',
+    estimatedTime: "Estimated maintenance time:",
+    infinite: "Infinite",
+    min: "min",
+    h: "h",
+    copiedAuras: "Copied Auras (Max 4)",
+    emptySlot: "-- Empty Slot --",
+    uncopyable: "Uncopyable",
+    insufficientAura: "Insufficient Aura",
+    levelAbbr: "Lvl",
+    unknown: "Unknown"
+  },
+  fr: {
+    title: "JOHN DOE",
+    subtitle: "Simulateur - Aura Manipulation & Capacity",
+    currentLevel: "Niveau Actuel",
+    auraReserves: "Réserves d'Aura",
+    auraSubtitle: "Les capacités haut-niveau drainent plus d'aura.",
+    lowAuraWarning: '"Je n\'ai plus beaucoup d\'aura en réserve..."',
+    estimatedTime: "Temps de maintien estimé :",
+    infinite: "Infini",
+    min: "min",
+    h: "h",
+    copiedAuras: "Auras Copiées (Max 4)",
+    emptySlot: "-- Emplacement Vide --",
+    uncopyable: "Non copiable",
+    insufficientAura: "Aura Insuffisante",
+    levelAbbr: "Niv",
+    unknown: "Inconnu"
+  }
+};
 
 // --- 1. CONFIGURATION DES STATS DE BASE DE JOHN ---
 const REFERENCE_LEVEL = 7.6;
@@ -22,8 +62,7 @@ const statConfig = [
   { key: 'defense', label: 'Defense', Icon: Shield, color: 'text-yellow-600' }
 ];
 
-// --- NOUVELLE LOGIQUE : CALCUL DU DRAIN D'AURA ---
-// Plus le niveau d'une capacité est élevé, plus le drain est exponentiel (complexité de l'aura)
+// --- LOGIQUE : CALCUL DU DRAIN D'AURA ---
 const getAuraCost = (niveau) => {
   return parseFloat((niveau * (niveau / 1.5)).toFixed(1));
 };
@@ -95,10 +134,13 @@ const RadarChart = ({ stats }) => {
 
 // --- 3. APPLICATION PRINCIPALE ---
 export default function App() {
+  const [lang, setLang] = useState('en'); // L'anglais est la langue par défaut
+  const txt = translations[lang];
+
   const [johnLevel, setJohnLevel] = useState(7.6);
   const [slots, setSlots] = useState(["", "", "", ""]);
 
-  // --- LOGIQUE DE RÉSERVE D'AURA (Aura Capacity Logic) ---
+  // --- LOGIQUE DE RÉSERVE D'AURA ---
   const maxAura = useMemo(() => johnLevel * 10, [johnLevel]);
   
   const currentAuraDrain = useMemo(() => {
@@ -112,23 +154,19 @@ export default function App() {
   const auraRemaining = parseFloat((maxAura - currentAuraDrain).toFixed(1));
   const auraPercentage = Math.min(100, (currentAuraDrain / maxAura) * 100);
 
-  // --- NOUVELLE LOGIQUE : ESTIMATION DU TEMPS DE MAINTIEN ---
+  // --- LOGIQUE : ESTIMATION DU TEMPS DE MAINTIEN ---
   const estimatedTimeMinutes = useMemo(() => {
     if (currentAuraDrain === 0) return Infinity;
-    
-    // On calcule ce que coûterait une capacité exactement au niveau de John
     const refDrain = getAuraCost(johnLevel); 
-    
-    // Formule : 120 minutes (2h) pour un drain équivalent à son niveau
     return Math.round(120 * (refDrain / currentAuraDrain));
   }, [currentAuraDrain, johnLevel]);
 
   const formatTime = (mins) => {
-    if (mins === Infinity) return "Infini";
-    if (mins < 60) return `${mins} min`;
+    if (mins === Infinity) return txt.infinite;
+    if (mins < 60) return `${mins} ${txt.min}`;
     const h = Math.floor(mins / 60);
     const m = mins % 60;
-    return m > 0 ? `${h}h ${m}min` : `${h}h`;
+    return m > 0 ? `${h}${txt.h} ${m}${txt.min}` : `${h}${txt.h}`;
   };
 
   // --- MOTEUR DE FUSION ---
@@ -154,11 +192,8 @@ export default function App() {
         for (let key in cap.ratios_stats) statsCalculees[key] = cap.ratios_stats[key] * johnLevel;
       }
 
-      // La statistique principale à amplifier est déjà calculée dans le JSON 
-      // (prend en compte la nature en cas d'égalité des stats de base)
       let maxStatKey = cap.stat_principale;
 
-      // Appliquer le bonus de 1.5 uniquement à la meilleure statistique (hors trick)
       for (let key in statsCalculees) {
         let valeur = statsCalculees[key];
         if (key === maxStatKey) valeur *= 1.5;
@@ -166,20 +201,10 @@ export default function App() {
       }
     });
 
-    // --- APPLICATION DE L'ARRONDI ICI ---
-    for (let key in stats) {
-      // Option 1 : Arrondi à 1 décimale (ex: 7.6)
-      // stats[key] = Math.round(stats[key] * 10) / 10;
-      
-      // Option 2 : Pour arrondir à l'entier, utilise plutôt la ligne ci-dessous
-      // stats[key] = Math.round(stats[key]);
-    }
-
     return stats;
   }, [johnLevel, slots]);
 
   const updateSlot = (index: number, value: string) => {
-    // If the user is removing an ability (emptying the slot), always allow it
     if (!value) {
       const newSlots = [...slots];
       newSlots[index] = "";
@@ -187,24 +212,18 @@ export default function App() {
       return;
     }
 
-    // Checking if the new ability fits into John's Aura Reserves
     const cap = capacitesData.find(c => c.id === parseInt(value));
-    
-    // <-- AJOUTER CETTE LIGNE POUR RASSURER TYPESCRIPT -->
     if (!cap) return; 
 
     const currentSlotVal = slots[index];
     const currentCap = currentSlotVal ? capacitesData.find(c => c.id === parseInt(currentSlotVal)) : null;
 
     const currentDrainInThisSlot = currentCap ? getAuraCost(currentCap.niveau) : 0;
-    const newDrain = getAuraCost(cap.niveau); // TypeScript ne râlera plus ici
+    const newDrain = getAuraCost(cap.niveau);
     
     const projectedAuraDrain = currentAuraDrain - currentDrainInThisSlot + newDrain;
 
-    if (projectedAuraDrain > maxAura) {
-      // Simulate John's restriction: "I don't have that much aura left"
-      return; 
-    }
+    if (projectedAuraDrain > maxAura) return; 
 
     const newSlots = [...slots];
     newSlots[index] = value;
@@ -212,15 +231,34 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 font-sans p-4 md:p-8 selection:bg-yellow-500/30">
+    <div className="relative min-h-screen bg-neutral-950 text-neutral-100 font-sans p-4 md:p-8 selection:bg-yellow-500/30">
       
+      {/* Sélecteur de Langue */}
+      <div className="absolute top-4 right-4 md:top-8 md:right-8 flex items-center gap-2 bg-neutral-900 border border-neutral-800 p-1.5 rounded-lg z-10">
+        <Globe size={16} className="text-neutral-400 ml-1" />
+        <div className="flex bg-neutral-950 rounded p-0.5 border border-neutral-800">
+          <button 
+            onClick={() => setLang('en')} 
+            className={`px-3 py-1 text-xs font-bold rounded-sm transition-colors ${lang === 'en' ? 'bg-yellow-500 text-neutral-950' : 'text-neutral-400 hover:text-neutral-200'}`}
+          >
+            EN
+          </button>
+          <button 
+            onClick={() => setLang('fr')} 
+            className={`px-3 py-1 text-xs font-bold rounded-sm transition-colors ${lang === 'fr' ? 'bg-yellow-500 text-neutral-950' : 'text-neutral-400 hover:text-neutral-200'}`}
+          >
+            FR
+          </button>
+        </div>
+      </div>
+
       {/* En-tête */}
-      <div className="max-w-6xl mx-auto mb-10 text-center">
+      <div className="max-w-6xl mx-auto mb-10 text-center pt-8 md:pt-0">
         <h1 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-600 tracking-tight mb-2">
-          JOHN DOE
+          {txt.title}
         </h1>
         <p className="text-neutral-400 font-medium uppercase tracking-widest text-sm md:text-base">
-          Simulateur - Aura Manipulation & Capacity
+          {txt.subtitle}
         </p>
       </div>
 
@@ -232,7 +270,7 @@ export default function App() {
           {/* Niveau de John */}
           <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-2xl shadow-xl flex items-center justify-between border-l-4 border-l-yellow-500">
             <label className="text-lg font-bold text-neutral-200">
-              Niveau Actuel
+              {txt.currentLevel}
             </label>
             <input 
               type="number" 
@@ -245,15 +283,15 @@ export default function App() {
             />
           </div>
 
-          {/* RESERVES D'AURA (Nouvelle section logiciel limitant les capacités) */}
+          {/* RESERVES D'AURA */}
           <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-2xl shadow-xl">
             <div className="flex justify-between items-end mb-3">
               <div>
                 <h2 className="text-neutral-200 font-bold text-lg flex items-center gap-2">
                   <Battery size={20} className={auraPercentage > 90 ? "text-red-500" : "text-yellow-500"} /> 
-                  Réserves d'Aura
+                  {txt.auraReserves}
                 </h2>
-                <p className="text-xs text-neutral-500 mt-1">Les capacités haut-niveau drainent plus d'aura.</p>
+                <p className="text-xs text-neutral-500 mt-1">{txt.auraSubtitle}</p>
               </div>
               <div className="text-right">
                 <span className="text-2xl font-black text-yellow-500">{auraRemaining}</span>
@@ -261,7 +299,6 @@ export default function App() {
               </div>
             </div>
             
-            {/* Barre de progression d'Aura */}
             <div className="h-4 w-full bg-neutral-950 rounded-full overflow-hidden border border-neutral-800 relative">
               <div 
                 className={`h-full transition-all duration-500 ease-out ${auraPercentage > 90 ? 'bg-red-500' : 'bg-gradient-to-r from-yellow-600 to-yellow-400'}`}
@@ -271,13 +308,12 @@ export default function App() {
             
             {auraRemaining <= 5 && (
               <p className="text-red-400 text-xs font-bold mt-3 flex items-center gap-1">
-                <BatteryWarning size={14} /> "Je n'ai plus beaucoup d'aura en réserve..."
+                <BatteryWarning size={14} /> {txt.lowAuraWarning}
               </p>
             )}
 
-            {/* NOUVEAU : Affichage du temps estimé */}
             <div className="flex justify-between items-center mt-4 border-t border-neutral-800 pt-3">
-              <span className="text-sm font-semibold text-neutral-400">Temps de maintien estimé :</span>
+              <span className="text-sm font-semibold text-neutral-400">{txt.estimatedTime}</span>
               <span className={`text-sm font-black tracking-wider ${currentAuraDrain === 0 ? 'text-neutral-500' : auraPercentage > 80 ? 'text-red-400' : 'text-yellow-500'}`}>
                 {formatTime(estimatedTimeMinutes)}
               </span>
@@ -286,7 +322,7 @@ export default function App() {
 
           {/* Emplacements de copie */}
           <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-2xl shadow-xl space-y-4">
-            <h2 className="text-neutral-400 font-semibold mb-4 text-sm uppercase tracking-wider">Auras Copiées (Max 4)</h2>
+            <h2 className="text-neutral-400 font-semibold mb-4 text-sm uppercase tracking-wider">{txt.copiedAuras}</h2>
             
             {slots.map((slot, index) => {
               const currentCap = slot ? capacitesData.find(c => c.id === parseInt(slot)) : null;
@@ -299,35 +335,29 @@ export default function App() {
                     onChange={(e) => updateSlot(index, e.target.value)}
                     className="w-full appearance-none bg-neutral-950 border border-neutral-800 text-neutral-200 py-3 pl-4 pr-16 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all cursor-pointer font-medium"
                   >
-                    <option value="">-- Emplacement Vide --</option>
+                    <option value="">{txt.emptySlot}</option>
                     {capacitesData.map(cap => {
                       const cost = getAuraCost(cap.niveau);
-                      // On grise/désactive l'option si elle dépasse l'aura dispo
                       const isTooExpensive = (currentAuraDrain - currentSlotDrain + cost) > maxAura;
-                      // On grise également si la capacité n'est pas copiable (Mental ou Meta)
                       const isUncopyable = cap.copiable === false;
                       
-                      // Déterminer la raison de la désactivation pour l'afficher à l'utilisateur
                       let disabledReason = "";
                       if (isUncopyable) {
-                        // Affiche dynamiquement le type (ex: "[Mental - Non copiable]" ou "[Meta - Non copiable]")
-                        disabledReason = ` [${cap.type || 'Inconnu'} - Non copiable]`;
+                        disabledReason = ` [${cap.type || txt.unknown} - ${txt.uncopyable}]`;
                       } else if (isTooExpensive && cap.id !== parseInt(slot)) {
-                        disabledReason = " [Aura Insuffisante]";
+                        disabledReason = ` [${txt.insufficientAura}]`;
                       }
 
-                      // La capacité est désactivée si elle est non-copiable, ou si elle coûte trop cher (sauf si elle est déjà sélectionnée)
                       const isDisabled = isUncopyable || (isTooExpensive && cap.id !== parseInt(slot));
 
                       return (
                         <option key={cap.id} value={cap.id} disabled={isDisabled}>
-                          {cap.nom_capacite} ({cap.nom_personnage}) - Niv {cap.niveau} {disabledReason}
+                          {cap.nom_capacite} ({cap.nom_personnage}) - {txt.levelAbbr} {cap.niveau} {disabledReason}
                         </option>
                       )
                     })}
                   </select>
                   
-                  {/* Indicateur de coût d'aura dans le select */}
                   {slot && currentCap && (
                     <div className="absolute right-10 top-1/2 -translate-y-1/2 text-xs font-bold text-yellow-500/70 bg-yellow-500/10 px-2 py-1 rounded-md">
                       -{getAuraCost(currentCap.niveau)}
