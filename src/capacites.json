@@ -1651,6 +1651,31 @@
     },
     {
         "id": 67,
+        "nom_personnage": "\"Cinder\"",
+        "nom_capacite": "Azure Storm+",
+        "niveau": 5.7,
+        "tier": "High Tier",
+        "nature": "Attaque",
+        "type": "Mental",
+        "copiable": false,
+        "stat_principale": "speed",
+        "stats_de_base": {
+            "power": 4.0,
+            "speed": 5.0,
+            "trick": 8.0,
+            "recovery": 3.0,
+            "defense": 4.0
+        },
+        "ratios_stats": {
+            "power": 0.7017543859649122,
+            "speed": 0.8771929824561403,
+            "trick": 1.4035087719298245,
+            "recovery": 0.5263157894736842,
+            "defense": 0.7017543859649122
+        }
+    },
+    {
+        "id": 68,
         "nom_personnage": "Rei",
         "nom_capacite": "Lightining",
         "niveau": 5.8,
@@ -1675,7 +1700,7 @@
         }
     },
     {
-        "id": 68,
+        "id": 69,
         "nom_personnage": "Remi",
         "nom_capacite": "Lightning",
         "niveau": 5.8,
@@ -1700,7 +1725,7 @@
         }
     },
     {
-        "id": 69,
+        "id": 70,
         "nom_personnage": "Verte",
         "nom_capacite": "Demolition",
         "niveau": 5.8,
@@ -1725,7 +1750,32 @@
         }
     },
     {
-        "id": 70,
+        "id": 71,
+        "nom_personnage": "\"Scorch\"",
+        "nom_capacite": "Psy-Blast+",
+        "niveau": 5.8,
+        "tier": "High Tier",
+        "nature": "Attaque",
+        "type": "Quantique",
+        "copiable": true,
+        "stat_principale": "power",
+        "stats_de_base": {
+            "power": 9.0,
+            "speed": 4.0,
+            "trick": 6.0,
+            "recovery": 2.0,
+            "defense": 3.0
+        },
+        "ratios_stats": {
+            "power": 1.5517241379310345,
+            "speed": 0.6896551724137931,
+            "trick": 1.0344827586206897,
+            "recovery": 0.3448275862068966,
+            "defense": 0.5172413793103449
+        }
+    },
+    {
+        "id": 72,
         "nom_personnage": "Byron",
         "nom_capacite": "Botanist",
         "niveau": 6.0,
@@ -1750,7 +1800,7 @@
         }
     },
     {
-        "id": 71,
+        "id": 73,
         "nom_personnage": "Tarik",
         "nom_capacite": "Paralysis",
         "niveau": 6.2,
@@ -1775,7 +1825,7 @@
         }
     },
     {
-        "id": 72,
+        "id": 74,
         "nom_personnage": "Liam",
         "nom_capacite": "Hydrofreeze",
         "niveau": 6.2,
@@ -1800,7 +1850,7 @@
         }
     },
     {
-        "id": 73,
+        "id": 75,
         "nom_personnage": "Kuyo",
         "nom_capacite": "Blademaster",
         "niveau": 6.3,
@@ -1825,7 +1875,7 @@
         }
     },
     {
-        "id": 74,
+        "id": 76,
         "nom_personnage": "Arlo",
         "nom_capacite": "Barrier",
         "niveau": 6.5,
@@ -1850,7 +1900,7 @@
         }
     },
     {
-        "id": 75,
+        "id": 77,
         "nom_personnage": "Leilah",
         "nom_capacite": "Time Manipulation",
         "niveau": 6.6,
@@ -1875,7 +1925,7 @@
         }
     },
     {
-        "id": 76,
+        "id": 78,
         "nom_personnage": "Keene",
         "nom_capacite": "Minefield",
         "niveau": 6.8,
@@ -1900,7 +1950,7 @@
         }
     },
     {
-        "id": 77,
+        "id": 79,
         "nom_personnage": "Kassandra",
         "nom_capacite": "Particles",
         "niveau": 6.8,
@@ -1925,7 +1975,7 @@
         }
     },
     {
-        "id": 78,
+        "id": 80,
         "nom_personnage": "Sylvia",
         "nom_capacite": "Sensory Control",
         "niveau": 7.3,
@@ -1950,7 +2000,7 @@
         }
     },
     {
-        "id": 79,
+        "id": 81,
         "nom_personnage": "Narisa",
         "nom_capacite": "Time Manipulation",
         "niveau": 7.4,
@@ -1975,7 +2025,7 @@
         }
     },
     {
-        "id": 80,
+        "id": 82,
         "nom_personnage": "Valerie",
         "nom_capacite": "Barrier",
         "niveau": 7.5,
@@ -2000,7 +2050,7 @@
         }
     },
     {
-        "id": 81,
+        "id": 83,
         "nom_personnage": "John",
         "nom_capacite": "Aura Manipulation",
         "niveau": 7.6,
@@ -2025,7 +2075,7 @@
         }
     },
     {
-        "id": 82,
+        "id": 84,
         "nom_personnage": "Vaughn",
         "nom_capacite": "Telekinesis",
         "niveau": 7.8,
@@ -2050,7 +2100,7 @@
         }
     },
     {
-        "id": 83,
+        "id": 85,
         "nom_personnage": "Seraphina",
         "nom_capacite": "Time Manipulation",
         "niveau": 8.0,
