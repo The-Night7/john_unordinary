@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { Shield, Zap, Swords, Brain, Heart, ChevronDown, Battery, BatteryWarning, Globe } from 'lucide-react';
+import { Shield, Zap, Swords, Brain, Heart, ChevronDown, Battery, BatteryWarning, Globe, Target } from 'lucide-react';
+
 import capacitesData from './capacites.json';
 
 // --- 0. DICTIONNAIRE DE TRADUCTION ---
@@ -20,7 +21,8 @@ const translations = {
     uncopyable: "Uncopyable",
     insufficientAura: "Insufficient Aura",
     levelAbbr: "Lvl",
-    unknown: "Unknown"
+    unknown: "Unknown",
+    estimatedLevel: "Estimated Effective Level"
   },
   fr: {
     title: "JOHN DOE",
@@ -38,7 +40,8 @@ const translations = {
     uncopyable: "Non copiable",
     insufficientAura: "Aura Insuffisante",
     levelAbbr: "Niv",
-    unknown: "Inconnu"
+    unknown: "Inconnu",
+    estimatedLevel: "Niveau Effectif Estimé"
   }
 };
 
@@ -69,7 +72,7 @@ const getAuraCost = (niveau) => {
 
 // --- 2. COMPOSANT GRAPHIQUE RADAR SVG SUR-MESURE ---
 const RadarChart = ({ stats }) => {
-  const maxStat = 10;
+  const maxStat = 10; // Max visualisé par défaut
   const size = 500;
   const cx = size / 2;
   const cy = size / 2;
@@ -79,7 +82,11 @@ const RadarChart = ({ stats }) => {
 
   const getPoints = (statObj, clamp = false) => {
     return keys.map((key, i) => {
-      const val = clamp ? Math.min(statObj[key] || 1, maxStat) : (statObj[key] || 1);
+      // Pour éviter de dépasser visuellement du SVG, on cap à 16. 
+      // Si clamp est activé (pour le fond radar), on bloque au maxStat
+      let val = statObj[key] || 1;
+      if (clamp) val = Math.min(val, maxStat);
+      
       const r = (val / maxStat) * radius;
       const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
       return `${cx + r * Math.cos(angle)},${cy + r * Math.sin(angle)}`;
@@ -89,7 +96,7 @@ const RadarChart = ({ stats }) => {
   const levels = [2, 4, 6, 8, 10];
 
   return (
-    <div className="relative w-full aspect-square max-w-[450px] mx-auto bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neutral-800 to-neutral-950 rounded-full p-4 shadow-2xl border border-neutral-800">
+    <div className="relative w-full aspect-square max-w-[400px] mx-auto bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neutral-800 to-neutral-950 rounded-full p-4 shadow-2xl border border-neutral-800">
       <svg width="100%" height="100%" viewBox={`0 0 ${size} ${size}`} className="overflow-visible">
         {levels.map(l => (
           <polygon key={l} points={getPoints({power:l, speed:l, trick:l, recovery:l, defense:l}, true)} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1.5" />
@@ -122,7 +129,7 @@ const RadarChart = ({ stats }) => {
           const rText = Math.max(radius, currentRadius) + 35; 
           
           return (
-            <text key={`lbl-${key}`} x={cx + rText * Math.cos(angle)} y={cy + rText * Math.sin(angle)} fill="#ffd700" fontSize="12" fontWeight="bold" textAnchor="middle" dominantBaseline="middle" className="tracking-wider uppercase opacity-90 transition-all duration-500 ease-in-out">
+            <text key={`lbl-${key}`} x={cx + rText * Math.cos(angle)} y={cy + rText * Math.sin(angle)} fill="#ffd700" fontSize="14" fontWeight="bold" textAnchor="middle" dominantBaseline="middle" className="tracking-wider uppercase opacity-90 transition-all duration-500 ease-in-out">
               {labels[i]}
             </text>
           )
@@ -134,7 +141,7 @@ const RadarChart = ({ stats }) => {
 
 // --- 3. APPLICATION PRINCIPALE ---
 export default function App() {
-  const [lang, setLang] = useState('en'); // L'anglais est la langue par défaut
+  const [lang, setLang] = useState('en');
   const txt = translations[lang];
 
   const [johnLevel, setJohnLevel] = useState(7.6);
@@ -161,14 +168,6 @@ export default function App() {
     return Math.round(120 * (refDrain / currentAuraDrain));
   }, [currentAuraDrain, johnLevel]);
 
-  const formatTime = (mins) => {
-    if (mins === Infinity) return txt.infinite;
-    if (mins < 60) return `${mins} ${txt.min}`;
-    const h = Math.floor(mins / 60);
-    const m = mins % 60;
-    return m > 0 ? `${h}${txt.h} ${m}${txt.min}` : `${h}${txt.h}`;
-  };
-
   // --- MOTEUR DE FUSION ---
   const statsFinales = useMemo(() => {
     let stats = { 
@@ -184,7 +183,7 @@ export default function App() {
       const cap = capacitesData.find(c => c.id === parseInt(slotId));
       if (!cap) return;
       
-      let statsCalculees: Record<string, number> = {};
+      let statsCalculees = {};
       
       if (johnLevel >= cap.niveau) {
         for (let key in cap.stats_de_base) statsCalculees[key] = cap.stats_de_base[key];
@@ -204,7 +203,71 @@ export default function App() {
     return stats;
   }, [johnLevel, slots]);
 
-  const updateSlot = (index: number, value: string) => {
+  // --- ALGORITHME DU NIVEAU EFFECTIF ESTIMÉ ---
+  const estimatedEffectiveLevel = useMemo(() => {
+    // 1. Somme de toutes les stats SAUF le Trick
+    const sumStatsWithoutTrick = statsFinales.power + statsFinales.speed + statsFinales.recovery + statsFinales.defense;
+    
+    // 2. Première moyenne (divisée par 4) pour pouvoir déduire le Tier actuel
+    const firstAvg = sumStatsWithoutTrick / 10;
+
+    // Pourcentages fixes
+    const CRIPPLE_PERCENTAGE = 1.0;
+    const LOW_PERCENTAGE = 0.7222;
+    const MID_PERCENTAGE = 0.6631;
+    const ELITE_PERCENTAGE = 0.6117;
+    const HIGH_PERCENTAGE = 0.5323;
+    const GOD_PERCENTAGE = 0.4527;
+
+    let tierPercentage;
+    let tierDividend;
+
+    // 3. Déduction du Tier basée sur la première moyenne (les seuils correspondent aux moyennes pour atteindre chaque tier)
+    if (firstAvg >= 5.34) {
+      // God Tier
+      tierPercentage = GOD_PERCENTAGE;
+      tierDividend = 3.07;
+    } else if (firstAvg >= 4.51) {
+      // High Tier
+      tierPercentage = HIGH_PERCENTAGE;
+      tierDividend = 3.45;
+    } else if (firstAvg >= 2.84) {
+      // Elite Tier
+      tierPercentage = ELITE_PERCENTAGE;
+      tierDividend = 3.09;
+    } else if (firstAvg >= 1.40) {
+      // Mid Tier
+      tierPercentage = MID_PERCENTAGE;
+      tierDividend = 2.73;
+    } else if (firstAvg >= 0.90) {
+      // Low Tier
+      tierPercentage = LOW_PERCENTAGE;
+      tierDividend = 2.46;
+    } else {
+      // Cripple
+      tierPercentage = CRIPPLE_PERCENTAGE;
+      tierDividend = 4.0;
+    }
+
+    // 4. Calcul de la vraie moyenne finale en utilisant le dividende spécifique au Tier
+    const finalStatAverage = sumStatsWithoutTrick / tierDividend;
+
+    // 5. Calcul final : Moyenne Finale / Pourcentage de Prestige
+    const calculatedLevel = finalStatAverage * tierPercentage;
+
+    return Math.min(10, calculatedLevel).toFixed(1);
+  }, [statsFinales]);
+
+
+  const formatTime = (mins) => {
+    if (mins === Infinity) return txt.infinite;
+    if (mins < 60) return `${mins} ${txt.min}`;
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    return m > 0 ? `${h}${txt.h} ${m}${txt.min}` : `${h}${txt.h}`;
+  };
+
+  const updateSlot = (index, value) => {
     if (!value) {
       const newSlots = [...slots];
       newSlots[index] = "";
@@ -372,12 +435,22 @@ export default function App() {
         </div>
 
         {/* PANNEAU DROIT : VISUALISATION */}
-        <div className="lg:col-span-7 flex flex-col items-center justify-center bg-neutral-900 border border-neutral-800 rounded-2xl p-6 shadow-xl">
+        <div className="lg:col-span-7 flex flex-col items-center justify-start bg-neutral-900 border border-neutral-800 rounded-2xl p-6 shadow-xl h-full">
           
           <div className="w-full mb-8">
             <RadarChart stats={statsFinales} />
           </div>
 
+          {/* Affichage du Niveau Effectif Estimé (Rendu plus discret) */}
+          <div className="w-full flex justify-end mb-3 pr-1">
+            <div className="flex items-center gap-2 text-sm opacity-80 hover:opacity-100 transition-opacity">
+              <Target size={14} className="text-neutral-500" />
+              <span className="text-neutral-400">{txt.estimatedLevel} :</span>
+              <span className="font-bold text-yellow-500">{estimatedEffectiveLevel}</span>
+            </div>
+          </div>
+
+          {/* Grille de stats */}
           <div className="w-full grid grid-cols-2 md:grid-cols-5 gap-3">
             {statConfig.map(({ key, label, Icon, color }) => (
               <div key={key} className="bg-neutral-950 border border-neutral-800 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-inner relative overflow-hidden group">
