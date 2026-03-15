@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react';
-import { Shield, Zap, Swords, Brain, Heart, ChevronDown, Battery, BatteryWarning, Globe, Target } from 'lucide-react';
+import { Shield, Zap, Swords, Brain, Heart, ChevronDown, Battery, BatteryWarning, Globe, Target, Infinity as InfinityIcon } from 'lucide-react';
 
+// --- 0. DONNÉES DES CAPACITÉS (Intégrées pour autonomie) ---
 import capacitesData from './capacites.json';
 
-// --- 0. DICTIONNAIRE DE TRADUCTION ---
+// --- 1. DICTIONNAIRE DE TRADUCTION ---
 const translations = {
   en: {
     title: "JOHN DOE",
@@ -22,7 +23,8 @@ const translations = {
     insufficientAura: "Insufficient Aura",
     levelAbbr: "Lvl",
     unknown: "Unknown",
-    estimatedLevel: "Estimated Effective Level"
+    estimatedLevel: "Estimated Effective Level",
+    sandbox: "Sandbox Mode"
   },
   fr: {
     title: "JOHN DOE",
@@ -41,11 +43,12 @@ const translations = {
     insufficientAura: "Aura Insuffisante",
     levelAbbr: "Niv",
     unknown: "Inconnu",
-    estimatedLevel: "Niveau Effectif Estimé"
+    estimatedLevel: "Niveau Effectif Estimé",
+    sandbox: "Mode Sandbox"
   }
 };
 
-// --- 1. CONFIGURATION DES STATS DE BASE DE JOHN ---
+// --- 2. CONFIGURATION DES STATS DE BASE DE JOHN ---
 const REFERENCE_LEVEL = 7.6;
 const JOHN_BASE_STATS = { power: 4, speed: 1, trick: 16, recovery: 1, defense: 1 };
 
@@ -70,9 +73,9 @@ const getAuraCost = (niveau) => {
   return parseFloat((niveau * (niveau / 1.5)).toFixed(1));
 };
 
-// --- 2. COMPOSANT GRAPHIQUE RADAR SVG SUR-MESURE ---
+// --- 3. COMPOSANT GRAPHIQUE RADAR SVG SUR-MESURE ---
 const RadarChart = ({ stats }) => {
-  const maxStat = 10; // Max visualisé par défaut
+  const maxStat = 10; 
   const size = 500;
   const cx = size / 2;
   const cy = size / 2;
@@ -82,11 +85,8 @@ const RadarChart = ({ stats }) => {
 
   const getPoints = (statObj, clamp = false) => {
     return keys.map((key, i) => {
-      // Pour éviter de dépasser visuellement du SVG, on cap à 16. 
-      // Si clamp est activé (pour le fond radar), on bloque au maxStat
       let val = statObj[key] || 1;
       if (clamp) val = Math.min(val, maxStat);
-      
       const r = (val / maxStat) * radius;
       const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
       return `${cx + r * Math.cos(angle)},${cy + r * Math.sin(angle)}`;
@@ -139,13 +139,16 @@ const RadarChart = ({ stats }) => {
   );
 };
 
-// --- 3. APPLICATION PRINCIPALE ---
+// --- 4. APPLICATION PRINCIPALE ---
 export default function App() {
   const [lang, setLang] = useState('en');
   const txt = translations[lang];
 
   const [johnLevel, setJohnLevel] = useState(7.6);
   const [slots, setSlots] = useState(["", "", "", ""]);
+  
+  // NOUVEAU : État pour le mode Sandbox (Aura Infinie)
+  const [isInfiniteMode, setIsInfiniteMode] = useState(false);
 
   // --- LOGIQUE DE RÉSERVE D'AURA ---
   const maxAura = useMemo(() => johnLevel * 10, [johnLevel]);
@@ -158,15 +161,29 @@ export default function App() {
     }, 0);
   }, [slots]);
 
-  const auraRemaining = parseFloat((maxAura - currentAuraDrain).toFixed(1));
-  const auraPercentage = Math.min(100, (currentAuraDrain / maxAura) * 100);
+  const auraRemainingVal = parseFloat((maxAura - currentAuraDrain).toFixed(1));
+  
+  const auraRemaining = isInfiniteMode ? "∞" : auraRemainingVal;
+  const auraPercentage = isInfiniteMode ? 100 : Math.min(100, (currentAuraDrain / maxAura) * 100);
 
   // --- LOGIQUE : ESTIMATION DU TEMPS DE MAINTIEN ---
   const estimatedTimeMinutes = useMemo(() => {
+    if (isInfiniteMode) return Infinity; // Si mode Sandbox activé
     if (currentAuraDrain === 0) return Infinity;
+    
     const refDrain = getAuraCost(johnLevel); 
-    return Math.round(120 * (refDrain / currentAuraDrain));
-  }, [currentAuraDrain, johnLevel]);
+    let baseTime = Math.round(120 * (refDrain / currentAuraDrain));
+    
+    // NOUVEAU : Chute drastique si l'aura restante est critique (< 10%)
+    const currentAuraPercentage = (currentAuraDrain / maxAura) * 100;
+    const remainingAuraPercentage = 100 - currentAuraPercentage;
+    
+    if (remainingAuraPercentage <= 10) {
+      baseTime = Math.max(1, Math.floor(baseTime / 5)); 
+    }
+
+    return baseTime;
+  }, [currentAuraDrain, johnLevel, maxAura, isInfiniteMode]);
 
   // --- MOTEUR DE FUSION ---
   const statsFinales = useMemo(() => {
@@ -203,61 +220,61 @@ export default function App() {
     return stats;
   }, [johnLevel, slots]);
 
-  // --- ALGORITHME DU NIVEAU EFFECTIF ESTIMÉ ---
+  // --- ALGORITHME DU NIVEAU EFFECTIF ESTIMÉ (Moyenne Extra + Bridage par Tiers) ---
   const estimatedEffectiveLevel = useMemo(() => {
-    // 1. Somme de toutes les stats SAUF le Trick
-    const sumStatsWithoutTrick = statsFinales.power + statsFinales.speed + statsFinales.recovery + statsFinales.defense;
+    const { power, speed, trick, recovery, defense } = statsFinales;
+
+    // 1. Dérivation des Extra Stats
+    const attackSpeed = power * speed / johnLevel;
+    const attackCharge = power * recovery / johnLevel;
     
-    // 2. Première moyenne (divisée par 4) pour pouvoir déduire le Tier actuel
-    const firstAvg = sumStatsWithoutTrick / 10;
+    // 2. Somme totale incluant les 5 stats + les 2 extras
+    const totalSum = power + speed + recovery + defense + attackSpeed + attackCharge;
+    
+    // 3. Calcul de la moyenne brute en divisant par 5
+    let rawLevel = totalSum / 5;
 
-    // Pourcentages fixes
-    const CRIPPLE_PERCENTAGE = 1.0;
-    const LOW_PERCENTAGE = 0.7222;
-    const MID_PERCENTAGE = 0.6631;
-    const ELITE_PERCENTAGE = 0.6117;
-    const HIGH_PERCENTAGE = 0.5323;
-    const GOD_PERCENTAGE = 0.4527;
+    // 4. Règles strictes de Tiers (basées sur la stat max, sans inclure le 'trick')
+    const baseStats = [power, speed, recovery, defense];
+    const maxBaseStat = Math.max(...baseStats);
+    const statsOver10 = baseStats.filter(s => s >= 10).length;
 
-    let tierPercentage;
-    let tierDividend;
+    let minLvl = 1.0;
+    let maxLvl = 10.0;
 
-    // 3. Déduction du Tier basée sur la première moyenne (les seuils correspondent aux moyennes pour atteindre chaque tier)
-    if (firstAvg >= 5.34) {
-      // God Tier
-      tierPercentage = GOD_PERCENTAGE;
-      tierDividend = 3.07;
-    } else if (firstAvg >= 4.51) {
-      // High Tier
-      tierPercentage = HIGH_PERCENTAGE;
-      tierDividend = 3.45;
-    } else if (firstAvg >= 2.84) {
-      // Elite Tier
-      tierPercentage = ELITE_PERCENTAGE;
-      tierDividend = 3.09;
-    } else if (firstAvg >= 1.40) {
-      // Mid Tier
-      tierPercentage = MID_PERCENTAGE;
-      tierDividend = 2.73;
-    } else if (firstAvg >= 0.90) {
-      // Low Tier
-      tierPercentage = LOW_PERCENTAGE;
-      tierDividend = 2.46;
+    if (maxBaseStat <= 2.0) {
+      maxLvl = 1.9; // Low tier
+    } else if (maxBaseStat <= 4.0) {
+      minLvl = 2.0; 
+      maxLvl = 3.0; // Mid tier (jusqu'au niveau 3)
+    } else if (maxBaseStat <= 5.0) {
+      minLvl = 3.1; 
+      maxLvl = 3.9; // Mid tier (passé niveau 3)
+    } else if (maxBaseStat <= 7.0) {
+      minLvl = 4.0; 
+      maxLvl = 4.9; // Elite tier
+    } else if (maxBaseStat <= 9.9) {
+      minLvl = 5.0; 
+      maxLvl = 6.9; // High tier & God tier initial (jusqu'à 7.0)
     } else {
-      // Cripple
-      tierPercentage = CRIPPLE_PERCENTAGE;
-      tierDividend = 4.0;
+      // maxBaseStat >= 10.0 (God tier supérieur)
+      if (statsOver10 <= 1) {
+        minLvl = 7.0;
+        maxLvl = 7.4; 
+      } else if (statsOver10 === 2) {
+        minLvl = 7.5;
+        maxLvl = 8.9; // Niveau 7.5+
+      } else {
+        minLvl = 9.0;
+        maxLvl = 10.0; // 3 stats ou + dépassant 10
+      }
     }
 
-    // 4. Calcul de la vraie moyenne finale en utilisant le dividende spécifique au Tier
-    const finalStatAverage = sumStatsWithoutTrick / tierDividend;
+    // 5. Bridage de la moyenne brute avec les limites du Tier
+    let finalLevel = Math.min(maxLvl, Math.max(minLvl, rawLevel));
 
-    // 5. Calcul final : Moyenne Finale / Pourcentage de Prestige
-    const calculatedLevel = finalStatAverage * tierPercentage;
-
-    return Math.min(10, calculatedLevel).toFixed(1);
+    return finalLevel.toFixed(1);
   }, [statsFinales]);
-
 
   const formatTime = (mins) => {
     if (mins === Infinity) return txt.infinite;
@@ -286,7 +303,7 @@ export default function App() {
     
     const projectedAuraDrain = currentAuraDrain - currentDrainInThisSlot + newDrain;
 
-    if (projectedAuraDrain > maxAura) return; 
+    if (!isInfiniteMode && projectedAuraDrain > maxAura) return; 
 
     const newSlots = [...slots];
     newSlots[index] = value;
@@ -350,34 +367,51 @@ export default function App() {
           <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-2xl shadow-xl">
             <div className="flex justify-between items-end mb-3">
               <div>
-                <h2 className="text-neutral-200 font-bold text-lg flex items-center gap-2">
-                  <Battery size={20} className={auraPercentage > 90 ? "text-red-500" : "text-yellow-500"} /> 
-                  {txt.auraReserves}
-                </h2>
-                <p className="text-xs text-neutral-500 mt-1">{txt.auraSubtitle}</p>
+                <div className="flex items-center gap-3">
+                  <h2 className="text-neutral-200 font-bold text-lg flex items-center gap-2">
+                    <Battery size={20} className={auraPercentage > 90 && !isInfiniteMode ? "text-red-500" : (isInfiniteMode ? "text-purple-400" : "text-yellow-500")} /> 
+                    {txt.auraReserves}
+                  </h2>
+                  {/* Bouton Sandbox Toggle */}
+                  <button
+                    onClick={() => setIsInfiniteMode(!isInfiniteMode)}
+                    className={`px-2 py-0.5 text-xs font-bold rounded-full border transition-colors flex items-center gap-1 ${isInfiniteMode ? 'bg-purple-500/20 text-purple-400 border-purple-500' : 'bg-neutral-800 text-neutral-400 border-neutral-700 hover:text-neutral-200'}`}
+                  >
+                    <InfinityIcon size={12} /> {txt.sandbox}
+                  </button>
+                </div>
+                <div className="mt-1">
+                  <p className="text-xs text-neutral-500">{txt.auraSubtitle}</p>
+                </div>
               </div>
-              <div className="text-right">
-                <span className="text-2xl font-black text-yellow-500">{auraRemaining}</span>
-                <span className="text-neutral-500 text-sm ml-1">/ {maxAura}</span>
+              <div className="text-right whitespace-nowrap">
+                <span className={`text-2xl font-black ${isInfiniteMode ? 'text-purple-400 text-3xl' : 'text-yellow-500'}`}>{auraRemaining}</span>
+                {!isInfiniteMode && <span className="text-neutral-500 text-sm ml-1">/ {maxAura}</span>}
               </div>
             </div>
             
             <div className="h-4 w-full bg-neutral-950 rounded-full overflow-hidden border border-neutral-800 relative">
               <div 
-                className={`h-full transition-all duration-500 ease-out ${auraPercentage > 90 ? 'bg-red-500' : 'bg-gradient-to-r from-yellow-600 to-yellow-400'}`}
+                className={`h-full transition-all duration-500 ease-out ${isInfiniteMode ? 'bg-purple-500' : (auraPercentage > 90 ? 'bg-red-500' : 'bg-gradient-to-r from-yellow-600 to-yellow-400')}`}
                 style={{ width: `${auraPercentage}%` }}
               ></div>
             </div>
             
-            {auraRemaining <= 5 && (
+            {(!isInfiniteMode && auraRemainingVal <= 5 && auraRemainingVal >= 0) && (
               <p className="text-red-400 text-xs font-bold mt-3 flex items-center gap-1">
                 <BatteryWarning size={14} /> {txt.lowAuraWarning}
+              </p>
+            )}
+            
+            {(!isInfiniteMode && auraRemainingVal < 0) && (
+              <p className="text-red-500 text-xs font-bold mt-3 flex items-center gap-1">
+                <BatteryWarning size={14} /> DANGER : Surcharge des canaux d'Aura !
               </p>
             )}
 
             <div className="flex justify-between items-center mt-4 border-t border-neutral-800 pt-3">
               <span className="text-sm font-semibold text-neutral-400">{txt.estimatedTime}</span>
-              <span className={`text-sm font-black tracking-wider ${currentAuraDrain === 0 ? 'text-neutral-500' : auraPercentage > 80 ? 'text-red-400' : 'text-yellow-500'}`}>
+              <span className={`text-sm font-black tracking-wider ${isInfiniteMode ? 'text-purple-400 text-xl' : (currentAuraDrain === 0 ? 'text-neutral-500' : auraPercentage > 90 ? 'text-red-500' : 'text-yellow-500')}`}>
                 {formatTime(estimatedTimeMinutes)}
               </span>
             </div>
@@ -396,12 +430,13 @@ export default function App() {
                   <select
                     value={slot}
                     onChange={(e) => updateSlot(index, e.target.value)}
-                    className="w-full appearance-none bg-neutral-950 border border-neutral-800 text-neutral-200 py-3 pl-4 pr-16 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition-all cursor-pointer font-medium"
+                    className={`w-full appearance-none bg-neutral-950 border text-neutral-200 py-3 pl-4 pr-16 rounded-xl focus:outline-none focus:ring-2 transition-all cursor-pointer font-medium ${isInfiniteMode ? 'border-purple-500/30 focus:border-purple-500 focus:ring-purple-500/50' : 'border-neutral-800 focus:border-yellow-500 focus:ring-yellow-500/50'}`}
                   >
                     <option value="">{txt.emptySlot}</option>
                     {capacitesData.map(cap => {
                       const cost = getAuraCost(cap.niveau);
-                      const isTooExpensive = (currentAuraDrain - currentSlotDrain + cost) > maxAura;
+                      // En mode infini, aucune capacité n'est "trop chère"
+                      const isTooExpensive = !isInfiniteMode && ((currentAuraDrain - currentSlotDrain + cost) > maxAura);
                       const isUncopyable = cap.copiable === false;
                       
                       let disabledReason = "";
@@ -422,7 +457,7 @@ export default function App() {
                   </select>
                   
                   {slot && currentCap && (
-                    <div className="absolute right-10 top-1/2 -translate-y-1/2 text-xs font-bold text-yellow-500/70 bg-yellow-500/10 px-2 py-1 rounded-md">
+                    <div className={`absolute right-10 top-1/2 -translate-y-1/2 text-xs font-bold px-2 py-1 rounded-md ${isInfiniteMode ? 'text-purple-400/80 bg-purple-500/10' : 'text-yellow-500/70 bg-yellow-500/10'}`}>
                       -{getAuraCost(currentCap.niveau)}
                     </div>
                   )}
@@ -441,7 +476,7 @@ export default function App() {
             <RadarChart stats={statsFinales} />
           </div>
 
-          {/* Affichage du Niveau Effectif Estimé (Rendu plus discret) */}
+          {/* Affichage du Niveau Effectif Estimé */}
           <div className="w-full flex justify-end mb-3 pr-1">
             <div className="flex items-center gap-2 text-sm opacity-80 hover:opacity-100 transition-opacity">
               <Target size={14} className="text-neutral-500" />

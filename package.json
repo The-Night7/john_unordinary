@@ -1,7 +1,7 @@
 {
-  "name": "cy-studyhub",
+  "name": "john-doe-capacitor-unordinary",
   "private": true,
-  "version": "1.0.0",
+  "version": "5.4.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
